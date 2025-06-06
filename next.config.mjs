@@ -13,7 +13,13 @@ const nextConfig = {
     {
       source: '/',
       destination: '/dashboard',
-      permanent: true,
+      permanent: false, 
+    },
+  ],
+  rewrites: async () => [
+    {
+      source: '/',
+      destination: '/dashboard', 
     },
   ],
 }
