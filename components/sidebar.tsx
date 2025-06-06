@@ -75,13 +75,6 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   }
 
   const navItems = [
-    // {
-    //   id: "home",
-    //   icon: Home,
-    //   text: "Tela inicial",
-    //   active: pathname === "/",
-    //   path: "/",
-    // },
     {
       id: "Home",
       icon: Home,
@@ -399,15 +392,15 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
       {/* Sidebar */}
       <div
         className={`
-        h-screen bg-[#efefef] overflow-hidden
+        h-screen bg-[#efefef] overflow-hidden relative
         transform transition-all duration-300 ease-in-out
         ${isOpen ? "w-[260px]" : "w-0"}
       `}
       >
         {/* Conteúdo da sidebar - só aparece quando aberta */}
-        <div className={`${isOpen ? "block" : "hidden"} h-full flex flex-col`}>
-          {/* Header da sidebar */}
-          <div className="flex items-center justify-between h-[80px] px-6 sticky top-0 bg-[#efefef] z-10">
+        <div className={`${isOpen ? "block" : "hidden"} h-full flex flex-col relative`}>
+          {/* Header da sidebar - com z-index maior */}
+          <div className="flex items-center justify-between h-[80px] px-6 sticky top-0 bg-[#efefef] z-20 border-b border-[#efefef]">
             <Link href="/" className="font-['Montserrat'] font-bold text-[#333333] text-base">
               CONSOLE
             </Link>
@@ -420,8 +413,8 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
             </button>
           </div>
 
-          {/* Campo de pesquisa - ajustado para ficar mais alinhado com o topo */}
-          <div className="px-4 py-2 sticky top-[80px] bg-[#efefef] z-10">
+          {/* Campo de pesquisa - com z-index maior */}
+          <div className="px-4 py-2 sticky top-[80px] bg-[#efefef] z-20 border-b border-[#efefef]">
             <div className="relative">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#b0b0b0]" />
               <Input
@@ -431,20 +424,20 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
             </div>
           </div>
 
-          {/* Menu de navegação */}
-          <div className="flex-1 overflow-y-auto px-4 py-2">
+          {/* Menu de navegação com scrollbar personalizada e z-index menor */}
+          <div className="flex-1 overflow-y-auto custom-scrollbar-sidebar px-4 py-2 pb-8 relative z-10">
             <div className="space-y-1">
               {navItems.map((item, index) => {
                 const IconComponent = item.icon
                 const isExpanded = expandedMenus.includes(item.id)
 
                 return (
-                  <div key={index} className="transition-all duration-300">
+                  <div key={index} className="transition-all duration-300 relative">
                     <div
                       className={`flex items-center h-[45px] px-4 rounded-[22px] cursor-pointer 
                         transition-all duration-300 ease-in-out transform hover:scale-[1.02]
                         ${item.hasSubmenu ? "hover:bg-[#d1d1d147]" : "hover:bg-[#d1d1d147]"} 
-                        ${item.active ? "bg-[#169BFF] shadow-md" : ""}`}
+                        ${item.active ? "bg-[#169BFF] shadow-md" : ""} relative z-10`}
                       onClick={() => {
                         if (item.hasSubmenu) {
                           toggleMenu(item.id)
