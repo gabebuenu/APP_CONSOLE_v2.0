@@ -54,6 +54,8 @@ export type SidebarProps = {
   toggleSidebar: () => void
 }
 
+
+
 const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   const router = useRouter()
   const pathname = usePathname()
