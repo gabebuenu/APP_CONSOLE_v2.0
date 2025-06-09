@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import {
   Home,
   User,
@@ -11,11 +11,18 @@ import {
   DollarSign,
   Mail,
   Settings,
+  ChevronLeft,
   ChevronRight,
 } from "lucide-react"
 import GeralTab from "./tabs/geral"
 import MinhaContaTab from "./tabs/minhaconta"
 import CapturaTab from "./tabs/capturas"
+import AdquirentesTab from "./tabs/adquirentes"
+import RegistradorasTab from "./tabs/registradoras"
+import DecredIofTab from "./tabs/decrediof"
+import RemessaBancariaTab from "./tabs/remessabancaria"
+import EmailSMTPTab from "./tabs/emailsmtp"
+import RotinasTab from "./tabs/rotinas"
 
 const menuItems = [
   { id: "geral", icon: Home, label: "Geral", sublabel: "Tela Inicial" },
@@ -23,7 +30,7 @@ const menuItems = [
   { id: "capturas", icon: Camera, label: "Capturas" },
   { id: "adquirentes", icon: CreditCard, label: "Adquirentes" },
   { id: "registradoras", icon: Monitor, label: "Registradoras" },
-  { id: "decreet", icon: FileText, label: "Decreet / OF" },
+  { id: "decred", icon: FileText, label: "Decred / IOF" },
   { id: "remessa", icon: DollarSign, label: "Remessa Bancária" },
   { id: "email", icon: Mail, label: "E-mail / SMTP" },
   { id: "rotinas", icon: Settings, label: "Rotinas" },
@@ -31,6 +38,59 @@ const menuItems = [
 
 export default function ParametrosPage() {
   const [activeTab, setActiveTab] = useState("geral")
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(false)
+
+  const checkScrollArrows = () => {
+    if (scrollContainerRef.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current
+      setShowLeftArrow(scrollLeft > 0)
+      // Adiciona uma pequena tolerância (e.g., 1px) para evitar que a seta direita desapareça muito cedo devido a arredondamentos
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1)
+    }
+  }
+
+  useEffect(() => {
+    checkScrollArrows()
+    const handleResize = () => checkScrollArrows()
+    const currentRef = scrollContainerRef.current
+
+    currentRef?.addEventListener("scroll", checkScrollArrows)
+    window.addEventListener("resize", handleResize)
+
+    // Scroll para a aba ativa quando a página é carregada ou a aba muda
+    setTimeout(() => {
+      const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${activeTab}"]`);
+      activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, 0); // Pequeno atraso para garantir que o elemento esteja renderizado
+
+
+    return () => {
+      currentRef?.removeEventListener("scroll", checkScrollArrows)
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [activeTab]) // Dependência: reexecuta se a aba ativa mudar para garantir a visibilidade e o scroll correto das setas.
+
+  const navigateTab = (direction: 'prev' | 'next') => {
+    const currentIndex = menuItems.findIndex(item => item.id === activeTab)
+    if (currentIndex === -1) return
+
+    let nextIndex
+    if (direction === 'next') {
+      nextIndex = (currentIndex + 1) % menuItems.length
+    } else { // 'prev'
+      nextIndex = (currentIndex - 1 + menuItems.length) % menuItems.length
+    }
+    const newActiveTabId = menuItems[nextIndex].id
+    setActiveTab(newActiveTabId)
+
+    // Rola para a aba recém-ativada
+    setTimeout(() => { // Pequeno atraso para permitir que a aba seja renderizada
+      const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${newActiveTabId}"]`)
+      activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    }, 100)
+  }
 
   const renderActiveComponent = () => {
     switch (activeTab) {
@@ -40,6 +100,18 @@ export default function ParametrosPage() {
         return <MinhaContaTab activeTab={activeTab} menuItems={menuItems} />
       case "capturas":
         return <CapturaTab activeTab={activeTab} menuItems={menuItems} />
+      case "adquirentes":
+        return <AdquirentesTab activeTab={activeTab} menuItems={menuItems} />
+      case "registradoras":
+        return <RegistradorasTab activeTab={activeTab} menuItems={menuItems} />
+      case "decred":
+        return <DecredIofTab activeTab={activeTab} menuItems={menuItems} />
+      case "remessa":
+        return <RemessaBancariaTab activeTab={activeTab} menuItems={menuItems} />
+      case "email":
+        return <EmailSMTPTab activeTab={activeTab} menuItems={menuItems} />
+      case "rotinas":
+        return <RotinasTab activeTab={activeTab} menuItems={menuItems} />
       default:
         return <div className="text-gray-500">Conteúdo indisponível.</div>
     }
@@ -51,25 +123,52 @@ export default function ParametrosPage() {
       <div className="lg:hidden bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="px-4 py-4">
           <h2 className="text-base font-semibold text-gray-900 mb-4">Parâmetros</h2>
-          <div className="flex overflow-x-auto scrollbar-hide space-x-3 pb-3">
-            {menuItems.map((item) => {
-              const IconComponent = item.icon
-              const isActive = activeTab === item.id
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`flex-shrink-0 flex flex-col items-center px-4 py-3 rounded-xl transition-all duration-300 min-w-[90px] touch-manipulation ${
-                    isActive
-                      ? "bg-[#169BFF] text-white shadow-lg scale-105"
-                      : "bg-gray-50 text-gray-600 hover:bg-gray-100 active:bg-gray-200"
-                  }`}
-                >
-                  <IconComponent className={`h-5 w-5 mb-2 ${isActive ? "text-white" : "text-gray-500"}`} />
-                  <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
-                </button>
-              )
-            })}
+          <div className="relative"> {/* Adicionado 'relative' para posicionar as setas */}
+            {showLeftArrow && (
+              <button
+                onClick={() => navigateTab('prev')}
+                className="absolute -left-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-105 transition-transform duration-200"
+                aria-label="Previous tab"
+              >
+                <ChevronLeft className="h-5 w-5 text-gray-700" />
+              </button>
+            )}
+
+            <div
+              ref={scrollContainerRef}
+              onScroll={checkScrollArrows}
+              className="flex overflow-x-auto scrollbar-hide space-x-3 pb-3"
+            >
+              {menuItems.map((item) => {
+                const IconComponent = item.icon
+                const isActive = activeTab === item.id
+                return (
+                  <button
+                    key={item.id}
+                    data-tab-id={item.id} 
+                    onClick={() => setActiveTab(item.id)}
+                    className={`flex-shrink-0 flex flex-col items-center px-4 py-3 rounded-xl transition-all duration-300 min-w-[90px] touch-manipulation ${
+                      isActive
+                        ? "bg-[#169BFF] text-white shadow-lg scale-105"
+                        : "bg-gray-50 text-gray-600 hover:bg-gray-100 active:bg-gray-200"
+                    }`}
+                  >
+                    <IconComponent className={`h-5 w-5 mb-2 ${isActive ? "text-white" : "text-gray-500"}`} />
+                    <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {showRightArrow && (
+              <button
+                onClick={() => navigateTab('next')}
+                className="absolute -right-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-105 transition-transform duration-200"
+                aria-label="Next tab"
+              >
+                <ChevronRight className="h-5 w-5 text-gray-700" />
+              </button>
+            )}
           </div>
         </div>
       </div>
