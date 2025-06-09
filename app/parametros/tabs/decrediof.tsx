@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-// Define props interface
 interface DecredIofTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -19,7 +18,6 @@ interface DecredIofTabProps {
 export default function DecredIofTab({ activeTab, menuItems = [] }: DecredIofTabProps) {
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
           {(() => {
@@ -40,12 +38,10 @@ export default function DecredIofTab({ activeTab, menuItems = [] }: DecredIofTab
         </div>
       </div>
 
-      {/* Configuração de emissão do DECRED */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-3">Configuração de emissão do DECRED</h3>
         <p className="text-sm text-gray-600 mb-6">É necessário informar os dados abaixo para gerar o DECRED.</p>
 
-        {/* Responsável Legal pela Empresa */}
         <div className="mb-8">
           <h4 className="text-sm font-semibold text-gray-900 mb-5">Responsável Legal pela Empresa</h4>
           <div className="space-y-5">
@@ -98,7 +94,6 @@ export default function DecredIofTab({ activeTab, menuItems = [] }: DecredIofTab
           </div>
         </div>
 
-        {/* Responsável pelos dados do arquivo */}
         <div className="mb-8">
           <h4 className="text-sm font-semibold text-gray-900 mb-5">Responsável pelos dados do arquivo</h4>
           <div className="space-y-5">
@@ -152,7 +147,6 @@ export default function DecredIofTab({ activeTab, menuItems = [] }: DecredIofTab
         </div>
       </div>
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
@@ -164,7 +158,6 @@ export default function DecredIofTab({ activeTab, menuItems = [] }: DecredIofTab
         </div>
       </div>
 
-      {/* Botão de salvar */}
       <div className="flex justify-end mt-6">
         <button
           className="px-6 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"

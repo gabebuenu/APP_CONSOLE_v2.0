@@ -16,7 +16,6 @@ export default function MainLayout({
     setSidebarOpen(!sidebarOpen)
   }
 
-  // Ao montar, detecta se é mobile e fecha a sidebar
   useEffect(() => {
     if (window.innerWidth < 1024) {
       setSidebarOpen(false)
@@ -25,17 +24,14 @@ export default function MainLayout({
 
   return (
     <div className="flex min-h-screen bg-[#efefef]">
-      {/* Sidebar desktop */}
       <div className="hidden lg:block h-screen">
         <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
-      {/* Sidebar mobile */}
       <div className="lg:hidden fixed top-0 left-0 z-50 h-full">
         <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
-      {/* Conteúdo principal */}
       <main className="flex-1 flex flex-col w-full">
         <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
 

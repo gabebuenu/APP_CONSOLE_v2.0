@@ -1,13 +1,12 @@
-// app/operacional/usuarios/gerenciar/page.tsx
 "use client"
 
 import { useState, useRef, useEffect } from "react"
 import {
   ChevronLeft,
   ChevronRight,
-  Monitor, // Usando Monitor para Console
-  Building2, // Icone para Estabelecimento (importado de lucide-react)
-  Truck, // Icone para Distribuidor (importado de lucide-react)
+  Monitor, 
+  Building2, 
+  Truck,
 } from "lucide-react"
 
 import ConsoleTab from "./tabs/console"
@@ -22,7 +21,7 @@ const menuItems = [
 ]
 
 export default function GerenciarUsuariosPage() {
-  const [activeTab, setActiveTab] = useState("console") // Aba inicial: Console
+  const [activeTab, setActiveTab] = useState("console") 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(false)
@@ -31,7 +30,7 @@ export default function GerenciarUsuariosPage() {
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current
       setShowLeftArrow(scrollLeft > 0)
-      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1) // Pequena tolerância
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1) 
     }
   }
 
@@ -43,7 +42,6 @@ export default function GerenciarUsuariosPage() {
     currentRef?.addEventListener("scroll", checkScrollArrows)
     window.addEventListener("resize", handleResize)
 
-    // Scroll para a aba ativa quando a página é carregada ou a aba muda
     setTimeout(() => {
       const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${activeTab}"]`);
       activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -62,13 +60,12 @@ export default function GerenciarUsuariosPage() {
     let nextIndex
     if (direction === 'next') {
       nextIndex = (currentIndex + 1) % menuItems.length
-    } else { // 'prev'
+    } else { 
       nextIndex = (currentIndex - 1 + menuItems.length) % menuItems.length
     }
     const newActiveTabId = menuItems[nextIndex].id
     setActiveTab(newActiveTabId)
 
-    // Rola para a aba recém-ativada
     setTimeout(() => {
       const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${newActiveTabId}"]`)
       activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
@@ -76,7 +73,6 @@ export default function GerenciarUsuariosPage() {
   }
 
   const renderActiveComponent = () => {
-    // Passando activeTab e menuItems para as tabs filhas, se necessário
     switch (activeTab) {
       case "console":
         return <ConsoleTab activeTab={activeTab} menuItems={menuItems} />
@@ -91,7 +87,6 @@ export default function GerenciarUsuariosPage() {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white">
-      {/* Mobile Navigation */}
       <div className="lg:hidden bg-white sticky top-0 z-10">
         <div className="px-4 py-4">
           <h2 className="text-base font-semibold text-gray-900 mb-4">Gerenciar Usuários</h2>
@@ -145,7 +140,6 @@ export default function GerenciarUsuariosPage() {
         </div>
       </div>
 
-      {/* Desktop Sidebar */}
       <div className="hidden lg:block w-[200px] bg-white flex-shrink-0"> 
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-900 mb-6">Gerenciar Usuários</h2>
@@ -177,16 +171,14 @@ export default function GerenciarUsuariosPage() {
         </nav>
       </div>
 
-      {/* Conteúdo da Tab Ativa */}
       <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8">
         {renderActiveComponent()}
       </div>
 
-      {/* Imagem Desktop (mantida, caso você ainda a utilize como placeholder) */}
       <div className="hidden lg:flex w-[542px] h-screen flex-shrink-0 items-center justify-center p-8 sticky top-0">
         <div className="relative w-full h-[773px] rounded-[25px] overflow-hidden">
           <img
-            src="/MovingBanner.png" // Certifique-se de que este caminho está correto
+            src="/MovingBanner.png" 
             alt="Dashboard Preview"
             className="object-cover w-full h-full"
           />

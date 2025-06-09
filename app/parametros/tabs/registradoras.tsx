@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-// Define props interface
 interface RemessaBancariaTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -17,7 +16,6 @@ interface RemessaBancariaTabProps {
   }>
 }
 
-// Mock data para a tabela
 const remessasMock = [
   {
     id: 1,
@@ -76,7 +74,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
   const handleSubmit = () => {
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
-    // Reset form
     setFormData({
       codigo: '',
       instituicao: '',
@@ -90,7 +87,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
 
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-6">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
           {(() => {
@@ -130,28 +126,28 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
             <table className="w-full text-xs">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Cód.
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Instituição / IP
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Agência
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Conta
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Status
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Padrão
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Atualização
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Changed px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Ações
                   </th>
                 </tr>
@@ -159,22 +155,22 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
               <tbody className="bg-white divide-y divide-gray-200">
                 {remessasMock.map((remessa) => (
                   <tr key={remessa.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium text-gray-900"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium text-gray-900"> 
                       {remessa.codigo}
                     </td>
-                    <td className="px-1 py-2"> {/* Changed px-2 to px-1 */}
-                      <div className="max-w-[120px]"> {/* Adjusted max-w from 140px to 120px */}
+                    <td className="px-1 py-2"> 
+                      <div className="max-w-[120px]">
                         <div className="text-xs font-medium text-gray-900 truncate">{remessa.instituicao}</div>
                         <div className="text-xs text-gray-500">{remessa.ip}</div>
                       </div>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> 
                       {remessa.agencia}
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> 
                       {remessa.conta || "-"}
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap"> 
                       <span className={`inline-flex px-1.5 py-0.5 text-xs font-semibold rounded-full ${
                         remessa.situacao === 'Habilitado'
                           ? 'bg-green-100 text-green-800'
@@ -183,7 +179,7 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                         {remessa.situacao}
                       </span>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap">
                       <span className={`inline-flex px-1.5 py-0.5 text-xs font-semibold rounded-full ${
                         remessa.padrao === 'Habilitado'
                           ? 'bg-blue-100 text-blue-800'
@@ -192,13 +188,13 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                         {remessa.padrao}
                       </span>
                     </td>
-                    <td className="px-1 py-2 text-xs text-gray-900"> {/* Changed px-2 to px-1 */}
-                      <div className="max-w-[80px]"> {/* Adjusted max-w from 90px to 80px */}
+                    <td className="px-1 py-2 text-xs text-gray-900"> 
+                      <div className="max-w-[80px]"> 
                         <div className="text-xs">{remessa.atualizacao.split(' ')[0]}</div>
                         <div className="text-xs text-gray-500">{remessa.atualizacao.split(' ')[1]}</div>
                       </div>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium"> {/* Changed px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium"> 
                       <div className="flex items-center gap-1">
                         <button className="text-red-600 hover:text-red-900 px-1.5 py-1 text-xs bg-red-50 rounded transition-colors">
                           Excluir
@@ -215,7 +211,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
           </div>
         </div>
 
-        {/* Cards Mobile */}
         <div className="md:hidden space-y-3">
           {remessasMock.map((remessa) => (
             <div key={remessa.id} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
@@ -273,18 +268,14 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       </div>
 
-      {/* Modal de Adicionar Remessa */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop com blur */}
           <div
             className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           ></div>
 
-          {/* Modal Content */}
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-900">Adicionar Remessa Bancária</h2>
               <button
@@ -295,9 +286,7 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
               </button>
             </div>
 
-            {/* Form */}
             <div className="p-6 space-y-4">
-              {/* Código */}
               <div>
                 <Label htmlFor="codigo" className="text-sm font-medium text-gray-700">
                   Código
@@ -312,7 +301,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Instituição Financeira */}
               <div>
                 <Label htmlFor="instituicao" className="text-sm font-medium text-gray-700">
                   Instituição Financeira
@@ -327,7 +315,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* IP */}
               <div>
                 <Label htmlFor="ip" className="text-sm font-medium text-gray-700">
                   IP
@@ -342,7 +329,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Agência */}
               <div>
                 <Label htmlFor="agencia" className="text-sm font-medium text-gray-700">
                   Agência
@@ -357,7 +343,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Conta */}
               <div>
                 <Label htmlFor="conta" className="text-sm font-medium text-gray-700">
                   Conta
@@ -372,7 +357,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Situação */}
               <div>
                 <Label htmlFor="situacao" className="text-sm font-medium text-gray-700">
                   Situação
@@ -388,7 +372,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 </select>
               </div>
 
-              {/* Padrão */}
               <div>
                 <Label htmlFor="padrao" className="text-sm font-medium text-gray-700">
                   Padrão
@@ -404,7 +387,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 </select>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -426,7 +408,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       )}
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image

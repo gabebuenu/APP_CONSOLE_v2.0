@@ -1,4 +1,3 @@
-// app/operacional/usuarios/gerenciar/tabs/estabelecimento.tsx
 "use client"
 
 import Image from "next/image"
@@ -21,11 +20,10 @@ export default function EstabelecimentoTab({ activeTab, menuItems }: Estabelecim
         Este é o conteúdo da aba "Estabelecimento". Adicione sua tabela e funcionalidades aqui.
       </p>
 
-      {/* Exemplo de imagem para consistência */}
       <div className="mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
-            src="/paymoving.png" // Ajuste o caminho da imagem
+            src="/paymoving.png" 
             alt="Estabelecimento Preview"
             layout="fill"
             objectFit="cover"

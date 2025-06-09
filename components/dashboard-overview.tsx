@@ -14,7 +14,6 @@ const DashboardOverview = () => {
   )
 }
 
-// Dashboard Header Component
 const DashboardHeader = () => {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
@@ -38,7 +37,6 @@ const DashboardHeader = () => {
   )
 }
 
-// Stats Section Component
 const StatsSection = () => {
   const metrics = [
     { label: "Débito", value: "R$00,00" },
@@ -51,7 +49,6 @@ const StatsSection = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
-      {/* Faturamento Total */}
       <div className="bg-[#F8F8F8] rounded-2xl p-6 group hover:shadow-lg transition-all duration-300 cursor-pointer">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
@@ -70,7 +67,6 @@ const StatsSection = () => {
         </div>
       </div>
 
-      {/* Informações */}
       <div className="bg-[#F8F8F8] rounded-[24px] p-6 group hover:shadow-md transition-all duration-300 cursor-pointer">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-gray-800 group-hover:text-gray-900 transition-colors">
@@ -88,14 +84,12 @@ const StatsSection = () => {
               className="bg-white rounded-[16px] p-3 sm:p-4 min-h-[100px] sm:min-h-[120px] flex flex-col justify-between cursor-pointer
                 transition-all duration-300 hover:shadow-md hover:scale-[1.02] w-[calc(50%-4px)] sm:w-[calc(33.333%-8px)] md:w-[calc(16.666%-10px)]"
             >
-              {/* Valor no canto superior esquerdo */}
               <div className="text-left">
                 <div className="text-sm font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                   {metric.value}
                 </div>
               </div>
 
-              {/* Ícone acima da label na parte inferior */}
               <div className="flex flex-col items-start space-y-2">
                 <CreditCard size={16} className="text-gray-400 hover:text-gray-600 transition-colors" />
                 <div className="flex items-center space-x-1 w-full">
@@ -113,7 +107,6 @@ const StatsSection = () => {
   )
 }
 
-// Sales Chart Component
 const SalesChart = () => {
   const [hoveredPoint, setHoveredPoint] = useState<number | null>(null)
   const [isHovered, setIsHovered] = useState(false)
@@ -121,11 +114,9 @@ const SalesChart = () => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const yAxisValues = [500, 400, 300, 200, 100, 0]
 
-  // Dados que correspondem exatamente à imagem
   const grayData = [500, 200, 180, 250, 400, 500, 300, 250, 350, 150, 400, 450]
   const blueData = [200, 150, 120, 200, 350, 450, 250, 200, 300, 100, 350, 400]
 
-  // Função para gerar curvas suaves (Bézier)
   const generateSmoothPath = (data: number[]) => {
     const points = data.map((value, index) => ({
       x: (index * 1200) / 11,
@@ -141,7 +132,6 @@ const SalesChart = () => {
       const curr = points[i]
       const next = points[i + 1]
 
-      // Calcular pontos de controle para curvas suaves
       const cp1x = prev.x + (curr.x - prev.x) * 0.3
       const cp1y = prev.y
       const cp2x = curr.x - (next ? (next.x - curr.x) * 0.3 : 0)
@@ -161,9 +151,7 @@ const SalesChart = () => {
 
   return (
     <div className="mb-8">
-      {/* Card Container */}
       <div className="bg-[#F8F8F8] rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-        {/* Header dentro do card */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 space-y-3 sm:space-y-0">
           <div>
             <h3 className="text-lg font-medium text-gray-800 mb-1">Vendas por período</h3>
@@ -174,7 +162,6 @@ const SalesChart = () => {
           </button>
         </div>
 
-        {/* Chart Area */}
         <div
           className="relative h-64 sm:h-80 w-full bg-gray-50/30 rounded-lg overflow-hidden cursor-crosshair"
           onMouseEnter={() => setIsHovered(true)}
@@ -183,7 +170,6 @@ const SalesChart = () => {
             setHoveredPoint(null)
           }}
         >
-          {/* Y-Axis */}
           <div className="absolute left-2 sm:left-4 top-4 bottom-12 flex flex-col justify-between text-[10px] sm:text-xs text-gray-400">
             {yAxisValues.map((value) => (
               <span key={value} className="font-medium">
@@ -192,7 +178,6 @@ const SalesChart = () => {
             ))}
           </div>
 
-          {/* Chart SVG */}
           <div className="ml-8 sm:ml-12 mr-2 sm:mr-4 mt-4 mb-12 h-48 sm:h-64 relative">
             <svg
               className="w-full h-full"
@@ -206,7 +191,6 @@ const SalesChart = () => {
               }}
             >
               <defs>
-                {/* Gradiente Cinza/Preto para Transparente */}
                 <linearGradient id="grayGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="#374151" stopOpacity="0.8" />
                   <stop offset="30%" stopColor="#6b7280" stopOpacity="0.6" />
@@ -214,7 +198,6 @@ const SalesChart = () => {
                   <stop offset="100%" stopColor="#d1d5db" stopOpacity="0" />
                 </linearGradient>
 
-                {/* Gradiente Azul para Transparente */}
                 <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="#0092FF" stopOpacity="1" />
                   <stop offset="40%" stopColor="#66BFFF" stopOpacity="0.7" />
@@ -222,7 +205,6 @@ const SalesChart = () => {
                   <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
                 </linearGradient>
 
-                {/* Filtros para efeitos de hover */}
                 <filter id="glow">
                   <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                   <feMerge>
@@ -232,7 +214,7 @@ const SalesChart = () => {
                 </filter>
               </defs>
 
-              {/* Grid lines sutis */}
+
               {[0, 1, 2, 3, 4, 5].map((i) => (
                 <line
                   key={i}
@@ -246,7 +228,7 @@ const SalesChart = () => {
                 />
               ))}
 
-              {/* Área Cinza (Background) - Curvas Suaves */}
+
               <path
                 d={generateSmoothAreaPath(grayData)}
                 fill="url(#grayGradient)"
@@ -256,7 +238,7 @@ const SalesChart = () => {
                 }}
               />
 
-              {/* Área Azul (Foreground) - Curvas Suaves */}
+
               <path
                 d={generateSmoothAreaPath(blueData)}
                 fill="url(#blueGradient)"
@@ -266,7 +248,6 @@ const SalesChart = () => {
                 }}
               />
 
-              {/* Linha Cinza - Curvas Suaves */}
               <path
                 d={generateSmoothPath(grayData)}
                 fill="none"
@@ -279,7 +260,6 @@ const SalesChart = () => {
                 }}
               />
 
-              {/* Linha Azul - Curvas Suaves */}
               <path
                 d={generateSmoothPath(blueData)}
                 fill="none"
@@ -292,10 +272,8 @@ const SalesChart = () => {
                 }}
               />
 
-              {/* Pontos interativos */}
               {hoveredPoint !== null && (
                 <>
-                  {/* Ponto Cinza */}
                   <circle
                     cx={(hoveredPoint * 1200) / 11}
                     cy={256 - (grayData[hoveredPoint] * 256) / 500}
@@ -306,7 +284,6 @@ const SalesChart = () => {
                     className="animate-pulse"
                   />
 
-                  {/* Ponto Azul */}
                   <circle
                     cx={(hoveredPoint * 1200) / 11}
                     cy={256 - (blueData[hoveredPoint] * 256) / 500}
@@ -317,7 +294,6 @@ const SalesChart = () => {
                     className="animate-pulse"
                   />
 
-                  {/* Linha vertical de referência */}
                   <line
                     x1={(hoveredPoint * 1200) / 11}
                     y1="0"
@@ -332,7 +308,6 @@ const SalesChart = () => {
               )}
             </svg>
 
-            {/* Tooltip */}
             {hoveredPoint !== null && (
               <div
                 className="absolute bg-white border border-gray-200 rounded-lg shadow-lg p-3 pointer-events-none z-10 transition-all duration-200"
@@ -357,7 +332,6 @@ const SalesChart = () => {
             )}
           </div>
 
-          {/* X-Axis */}
           <div className="absolute bottom-2 sm:bottom-4 left-8 sm:left-12 right-2 sm:right-4 flex justify-between text-[8px] sm:text-xs text-gray-400 font-medium">
             {months.map((month, index) => (
               <span
@@ -376,7 +350,6 @@ const SalesChart = () => {
   )
 }
 
-// Transactions Section Component
 const TransactionsSection = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [expandedRow, setExpandedRow] = useState<number | null>(null)
@@ -444,14 +417,11 @@ const TransactionsSection = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* Vendas/Transações */}
       <div className="lg:col-span-2 bg-[#F8F8F8] rounded-lg p-6">
         <h3 className="text-lg font-medium text-gray-900 mb-6">Vendas/Transações</h3>
 
-        {/* Desktop Table */}
         {!isMobile && (
           <>
-            {/* Table Header */}
             <div className="grid grid-cols-7 gap-4 text-sm font-medium text-gray-700 mb-4 pb-2">
               <span className="flex items-center space-x-1 cursor-pointer hover:text-gray-900 transition-colors duration-200">
                 <span>Data</span>
@@ -483,7 +453,6 @@ const TransactionsSection = () => {
               </span>
             </div>
 
-            {/* Table Rows */}
             <div className="space-y-3">
               {transactions.map((transaction, index) => (
                 <div
@@ -518,12 +487,10 @@ const TransactionsSection = () => {
           </>
         )}
 
-        {/* Mobile Cards */}
         {isMobile && (
           <div className="space-y-4">
             {transactions.map((transaction, index) => (
               <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                {/* Card Header */}
                 <div className="flex justify-between items-center p-3 cursor-pointer" onClick={() => toggleRow(index)}>
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
@@ -551,7 +518,6 @@ const TransactionsSection = () => {
                   </div>
                 </div>
 
-                {/* Card Details (expandable) */}
                 {expandedRow === index && (
                   <div className="px-3 pb-3 pt-1 border-t border-gray-100 space-y-2">
                     <div className="flex justify-between">
@@ -578,7 +544,6 @@ const TransactionsSection = () => {
         )}
       </div>
 
-      {/* Distribuição por bandeira */}
       <div className="bg-[#F8F8F8] rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-medium text-gray-900">Distribuição por bandeira</h3>
@@ -593,7 +558,7 @@ const TransactionsSection = () => {
           <span className="text-sm text-gray-700 font-medium">Vendas</span>
         </div>
 
-        {/* Donut Chart */}
+
         <div className="relative w-48 h-48 mx-auto">
           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="70" fill="none" stroke="#e5e7eb" strokeWidth="20" />

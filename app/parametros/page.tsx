@@ -46,7 +46,6 @@ export default function ParametrosPage() {
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current
       setShowLeftArrow(scrollLeft > 0)
-      // Adiciona uma pequena tolerância (e.g., 1px) para evitar que a seta direita desapareça muito cedo devido a arredondamentos
       setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1)
     }
   }
@@ -59,18 +58,17 @@ export default function ParametrosPage() {
     currentRef?.addEventListener("scroll", checkScrollArrows)
     window.addEventListener("resize", handleResize)
 
-    // Scroll para a aba ativa quando a página é carregada ou a aba muda
     setTimeout(() => {
       const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${activeTab}"]`);
       activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }, 0); // Pequeno atraso para garantir que o elemento esteja renderizado
+    }, 0); 
 
 
     return () => {
       currentRef?.removeEventListener("scroll", checkScrollArrows)
       window.removeEventListener("resize", handleResize)
     }
-  }, [activeTab]) // Dependência: reexecuta se a aba ativa mudar para garantir a visibilidade e o scroll correto das setas.
+  }, [activeTab]) 
 
   const navigateTab = (direction: 'prev' | 'next') => {
     const currentIndex = menuItems.findIndex(item => item.id === activeTab)
@@ -79,14 +77,13 @@ export default function ParametrosPage() {
     let nextIndex
     if (direction === 'next') {
       nextIndex = (currentIndex + 1) % menuItems.length
-    } else { // 'prev'
+    } else { 
       nextIndex = (currentIndex - 1 + menuItems.length) % menuItems.length
     }
     const newActiveTabId = menuItems[nextIndex].id
     setActiveTab(newActiveTabId)
 
-    // Rola para a aba recém-ativada
-    setTimeout(() => { // Pequeno atraso para permitir que a aba seja renderizada
+    setTimeout(() => { 
       const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${newActiveTabId}"]`)
       activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
     }, 100)
@@ -119,11 +116,10 @@ export default function ParametrosPage() {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white">
-      {/* Mobile Navigation */}
       <div className="lg:hidden bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="px-4 py-4">
           <h2 className="text-base font-semibold text-gray-900 mb-4">Parâmetros</h2>
-          <div className="relative"> {/* Adicionado 'relative' para posicionar as setas */}
+          <div className="relative"> 
             {showLeftArrow && (
               <button
                 onClick={() => navigateTab('prev')}
@@ -173,7 +169,6 @@ export default function ParametrosPage() {
         </div>
       </div>
 
-      {/* Desktop Sidebar */}
       <div className="hidden lg:block w-[200px] bg-white flex-shrink-0">
         <div className="p-4">
           <h2 className="text-sm font-medium text-gray-900 mb-1">Geral</h2>
@@ -206,12 +201,10 @@ export default function ParametrosPage() {
         </nav>
       </div>
 
-      {/* Conteúdo da Tab Ativa */}
       <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8">
         {renderActiveComponent()}
       </div>
 
-      {/* Imagem Desktop */}
       <div className="hidden lg:flex bg-white w-[542px] h-screen flex-shrink-0 items-center justify-center p-8 sticky top-0">
         <div className="relative w-full h-[773px] rounded-[25px] overflow-hidden">
           <img

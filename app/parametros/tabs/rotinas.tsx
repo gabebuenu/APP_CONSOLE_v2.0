@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import { useState } from "react"
 
-// Define props interface
 interface RotinasTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -43,7 +42,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
 
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
           {(() => {
@@ -64,7 +62,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
         </div>
       </div>
 
-      {/* Gerenciamento das Rotinas - Aviso */}
       <div className="mb-8 md:mb-8">
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
           <h4 className="text-sm font-semibold text-blue-800 mb-2">Gerenciamento das Rotinas</h4>
@@ -74,7 +71,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
         </div>
       </div>
 
-      {/* Seção Gerenciamento das Rotinas */}
       <div className="mb-8 md:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5">
           <h3 className="text-base font-semibold text-gray-900 mb-3 sm:mb-0">Gerenciamento das Rotinas</h3>
@@ -87,31 +83,30 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
           </button>
         </div>
 
-        {/* Tabela Desktop */}
         <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     #
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Descrição
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Horário
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Periodicidade
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Cadastro
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Status
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> {/* Reduced px-2 to px-1 */}
+                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
                     Ações
                   </th>
                 </tr>
@@ -119,29 +114,29 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
               <tbody className="bg-white divide-y divide-gray-200">
                 {rotinasData.map((rotina) => (
                   <tr key={rotina.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium text-gray-900"> {/* Reduced px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium text-gray-900"> 
                       {rotina.id}
                     </td>
-                    <td className="px-1 py-2"> {/* Reduced px-2 to px-1 */}
-                      <div className="max-w-[180px] truncate text-xs text-gray-900" title={rotina.descricao}> {/* Adjusted max-w, ensured text-xs */}
+                    <td className="px-1 py-2"> 
+                      <div className="max-w-[180px] truncate text-xs text-gray-900" title={rotina.descricao}> 
                         {rotina.descricao}
                       </div>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> {/* Reduced px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> 
                       {rotina.horario}
                     </td>
-                    <td className="px-1 py-2"> {/* Reduced px-2 to px-1 */}
-                      <div className="max-w-[140px] truncate text-xs text-gray-900" title={rotina.periodicidade}> {/* Adjusted max-w, ensured text-xs */}
+                    <td className="px-1 py-2"> 
+                      <div className="max-w-[140px] truncate text-xs text-gray-900" title={rotina.periodicidade}> 
                         {rotina.periodicidade}
                       </div>
                     </td>
-                    <td className="px-1 py-2 text-xs text-gray-900"> {/* Reduced px-2 to px-1 */}
-                      <div className="max-w-[90px]"> {/* Kept max-w for consistency */}
+                    <td className="px-1 py-2 text-xs text-gray-900"> 
+                      <div className="max-w-[90px]"> 
                         <div className="text-xs">{rotina.dataCadastro.split(' ')[0]}</div>
                         <div className="text-xs text-gray-500">{rotina.dataCadastro.split(' ')[1]}</div>
                       </div>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap"> {/* Reduced px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap"> 
                       <span className={`inline-flex px-1.5 py-0.5 text-xs font-semibold rounded-full ${
                         rotina.situacao === 'Ativo'
                           ? 'bg-green-100 text-green-800'
@@ -150,7 +145,7 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
                         {rotina.situacao}
                       </span>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium"> {/* Reduced px-2 to px-1 */}
+                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium"> 
                       <div className="flex items-center gap-1">
                         <button className="text-red-600 hover:text-red-900 px-1.5 py-1 text-xs bg-red-50 rounded transition-colors" title="Excluir">
                           Excluir
@@ -171,7 +166,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
           </div>
         </div>
 
-        {/* Cards Mobile/Tablet */}
         <div className="lg:hidden space-y-4">
           {rotinasData.map((rotina) => (
             <div key={rotina.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
@@ -232,7 +226,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
         </div>
       </div>
 
-      {/* Modal Adicionar Rotina */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -247,7 +240,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
             </div>
 
             <div className="p-6">
-              {/* Aviso importante */}
               <div className="mb-6">
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
                   <h4 className="text-sm font-semibold text-yellow-800 mb-2">Informação importante!</h4>
@@ -257,7 +249,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
                 </div>
               </div>
 
-              {/* Formulário */}
               <div className="space-y-6">
                 <div className="space-y-3">
                   <Label htmlFor="select-rotina" className="text-sm font-medium text-gray-700">
@@ -341,7 +332,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
                 </div>
               </div>
 
-              {/* Botões do modal */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -360,7 +350,6 @@ export default function RotinasTab({ activeTab, menuItems = [] }: RotinasTabProp
         </div>
       )}
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image

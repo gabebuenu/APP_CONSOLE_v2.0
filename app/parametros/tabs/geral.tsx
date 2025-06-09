@@ -14,7 +14,6 @@ const UploadArea = ({ title, subtitle }: { title: string; subtitle: string }) =>
   </div>
 )
 
-// Define props interface
 interface GeralTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -28,7 +27,6 @@ interface GeralTabProps {
 export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
           {(() => {
@@ -49,7 +47,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Logo das Aplicações */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Logo das Aplicações (White Label)</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-4">
@@ -59,7 +56,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Cadastro */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Cadastro</h3>
         <div className="space-y-5">
@@ -117,7 +113,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Organização/Parâmetro */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Organização/Parâmetro</h3>
         <div className="space-y-5">
@@ -176,7 +171,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Contas a pagar */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Contas à pagar</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -201,7 +195,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Antecipação */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Antecipação</h3>
         <div className="space-y-5">
@@ -238,7 +231,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Parâmetros da ELO */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Parâmetros da ELO</h3>
         <div className="space-y-5">
@@ -256,7 +248,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Mensalidade POS */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Mensalidade POS</h3>
         <div className="space-y-5">
@@ -283,7 +274,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Lançamentos */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Lançamentos</h3>
         <div className="space-y-5">
@@ -310,7 +300,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
@@ -322,7 +311,6 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
         </div>
       </div>
 
-      {/* Botão de atualizar parâmetros */}
       <div className="flex justify-end mt-6">
         <button
           className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"

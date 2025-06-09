@@ -1,13 +1,11 @@
-// app/operacional/usuarios/gerenciar/tabs/console.tsx
 "use client"
 
 import { useState } from "react"
-import { Plus, Search, Eye, ChevronLeft, ChevronRight } from "lucide-react" // Importe ícones necessários
-import { Input } from "@/components/ui/input" // Assumindo que você tem um componente Input
-import { Label } from "@/components/ui/label" // Assumindo que você tem um componente Label
-import Image from "next/image" // Se for usar imagem, como nos outros exemplos
+import { Plus, Search, Eye, ChevronLeft, ChevronRight } from "lucide-react"
+import { Input } from "@/components/ui/input" 
+import { Label } from "@/components/ui/label" 
+import Image from "next/image"
 
-// Mock data para a tabela de usuários do Console
 const usuariosConsoleMock = [
   {
     id: 25213,
@@ -57,7 +55,7 @@ const usuariosConsoleMock = [
     permissoes: "Grupo 5",
     situacao: "Habilitado",
   },
-  // Adicione mais dados mockados aqui se precisar testar a paginação
+
   {
     id: 23500,
     nome: "Ana Silva",
@@ -106,9 +104,8 @@ interface ConsoleTabProps {
 export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8 // Aumentei para mostrar mais itens por página
+  const itemsPerPage = 8 
 
-  // Filtrar usuários com base no termo de busca
   const filteredUsers = usuariosConsoleMock.filter(user =>
     user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.cpf.includes(searchTerm) ||
@@ -116,7 +113,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
     user.id.toString().includes(searchTerm)
   )
 
-  // Lógica de paginação
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
@@ -140,7 +136,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
         <h2 className="text-base font-semibold text-gray-800">Usuários Console</h2>
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-          {/* Input de Busca */}
           <div className="relative flex-grow sm:flex-grow-0">
             <Input
               type="text"
@@ -154,7 +149,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
             />
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-gray-400" />
           </div>
-          {/* Botão Adicionar */}
           <button
             onClick={handleAddUser}
             className="flex items-center justify-center px-2.5 py-1 text-sm font-medium text-white bg-[#169BFF] rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors w-full sm:w-auto h-8"
@@ -164,7 +158,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
         </div>
       </div>
 
-      {/* Tabela */}
       <div className="overflow-x-auto rounded border border-gray-200">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -232,7 +225,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
         </table>
       </div>
 
-      {/* Paginação */}
       {totalPages > 1 && (
         <nav className="flex items-center justify-between pt-2" aria-label="Pagination">
           <div className="flex-1 flex justify-between sm:justify-end">
@@ -259,7 +251,6 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
         </nav>
       )}
 
-      {/* Exemplo de Modal de Adicionar Usuário (pode ser um componente separado) */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
@@ -286,15 +277,14 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
         </div>
       )}
 
-      {/* Imagem mobile (mantida para consistência, ajuste se necessário) */}
       <div className="lg:hidden mt-4">
         <div className="relative w-full h-[120px] rounded-lg overflow-hidden flex items-center justify-center shadow">
           <Image
-            src="/paymoving.png" // Ajuste o caminho da imagem se necessário
+            src="/paymoving.png"
             alt="Usuários Console Preview"
             layout="fill"
             objectFit="cover"
-            className="opacity-50" // Para deixar a imagem mais sutil
+            className="opacity-50"
           />
           <p className="relative z-10 text-white text-base font-bold">Gerenciamento de Usuários</p>
         </div>

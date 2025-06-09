@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-// Define props interface
+
 interface CapturaTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -17,7 +17,6 @@ interface CapturaTabProps {
   }>
 }
 
-// Mock data para a tabela
 const capturasMock = [
   {
     id: 1,
@@ -71,7 +70,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
     e.preventDefault()
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
-    // Reset form
     setFormData({
       captura: '',
       url: '',
@@ -85,7 +83,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
 
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-6">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
           {(() => {
@@ -106,7 +103,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
         </div>
       </div>
 
-      {/* Sincronização com a captura */}
       <div className="mb-6">
         <h3 className="text-sm font-semibold text-gray-900 mb-2">Sincronização com a captura</h3>
         <p className="text-xs text-gray-600 mb-4">
@@ -114,7 +110,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
         </p>
       </div>
 
-      {/* Capturas Vinculadas */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
           <h3 className="text-sm font-semibold text-gray-900">Capturas Vinculadas</h3>
@@ -130,7 +125,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
           </button>
         </div>
 
-        {/* Tabela Desktop */}
         <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -203,7 +197,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
           </div>
         </div>
 
-        {/* Cards Mobile */}
         <div className="md:hidden space-y-3">
           {capturasMock.map((captura) => (
             <div key={captura.id} className="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
@@ -249,18 +242,14 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
         </div>
       </div>
 
-      {/* Modal de Adicionar Captura */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop com blur */}
           <div 
             className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           ></div>
           
-          {/* Modal Content */}
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-900">Adicionar Captura</h2>
               <button
@@ -271,15 +260,12 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
               </button>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-5">
-              {/* Gateway Info */}
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="text-sm font-semibold text-gray-900 mb-1">Gateway - Notificações PUSH</h3>
                 <p className="text-xs text-gray-600">Verifique a disponibilidade com o provedor do capturador.</p>
               </div>
 
-              {/* Captura / TEF */}
               <div>
                 <Label htmlFor="captura" className="text-sm font-medium text-gray-700">
                   Captura / TEF
@@ -298,7 +284,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 </select>
               </div>
 
-              {/* URL */}
               <div>
                 <Label htmlFor="url" className="text-sm font-medium text-gray-700">
                   URL (Endpoint API Captura)
@@ -313,7 +298,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 />
               </div>
 
-              {/* Usuário */}
               <div>
                 <Label htmlFor="usuario" className="text-sm font-medium text-gray-700">
                   Usuário <span className="text-xs text-gray-500">(Necessário se chave de acesso em branco)</span>
@@ -327,7 +311,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 />
               </div>
 
-              {/* Senha */}
               <div>
                 <Label htmlFor="senha" className="text-sm font-medium text-gray-700">
                   Senha <span className="text-xs text-gray-500">(Necessário se chave de acesso em branco)</span>
@@ -341,7 +324,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 />
               </div>
 
-              {/* Token */}
               <div>
                 <Label htmlFor="token" className="text-sm font-medium text-gray-700">
                   Token <span className="text-xs text-gray-500">(Necessário se usuário em branco)</span>
@@ -355,7 +337,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 />
               </div>
 
-              {/* Checkboxes */}
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <input
@@ -384,7 +365,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -405,7 +385,6 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
         </div>
       )}
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image

@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 
-// Define props interface
 interface MinhaContaTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -20,7 +19,6 @@ interface MinhaContaTabProps {
 export default function MinhaContaTab({ activeTab, menuItems = [] }: MinhaContaTabProps) {
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
           {(() => {
@@ -41,7 +39,6 @@ export default function MinhaContaTab({ activeTab, menuItems = [] }: MinhaContaT
         </div>
       </div>
 
-      {/* Minha Conta */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Minha Conta</h3>
         <div className="space-y-5">
@@ -121,7 +118,6 @@ export default function MinhaContaTab({ activeTab, menuItems = [] }: MinhaContaT
         </div>
       </div>
 
-      {/* Meus dados de acesso */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Meus dados de acesso</h3>
         <div className="space-y-5">
@@ -164,7 +160,6 @@ export default function MinhaContaTab({ activeTab, menuItems = [] }: MinhaContaT
         </div>
       </div>
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
@@ -176,7 +171,6 @@ export default function MinhaContaTab({ activeTab, menuItems = [] }: MinhaContaT
         </div>
       </div>
 
-      {/* Botões de ação */}
       <div className="flex flex-col sm:flex-row gap-3 justify-end mt-6">     
         <button
             className="px-6 py-2 bg-[#169BFF] text-white text-sm font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"

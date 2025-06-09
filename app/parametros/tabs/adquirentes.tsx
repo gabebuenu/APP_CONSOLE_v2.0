@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-// Define props interface
 interface AdquirentesTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -17,7 +16,6 @@ interface AdquirentesTabProps {
   }>
 }
 
-// Mock data para a tabela
 const adquirentesMock = [
   {
     id: 1,
@@ -79,7 +77,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
     e.preventDefault()
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
-    // Reset form
     setFormData({
       nome: '',
       situacao: 'Habilitada',
@@ -103,7 +100,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
   }
 
   const handleVisualizarBandeiras = (adquirente: any) => {
-    // Redireciona para a página de bandeiras com o ID do adquirente
     window.location.href = `/bandeiras/${adquirente.idAdquirente}`
   }
 
@@ -116,7 +112,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
 
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-6">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
           {(() => {
@@ -137,7 +132,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
         </div>
       </div>
 
-      {/* Informação importante */}
       <div className="mb-6">
         <div className="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
@@ -150,7 +144,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
         </div>
       </div>
 
-      {/* Adquirentes */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
           <h3 className="text-sm font-semibold text-gray-900">Adquirentes</h3>
@@ -166,7 +159,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
           </button>
         </div>
 
-        {/* Tabela Desktop */}
         <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -244,7 +236,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
           </div>
         </div>
 
-        {/* Cards Mobile */}
         <div className="md:hidden space-y-3">
           {adquirentesMock.map((adquirente) => (
             <div key={adquirente.id} className="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
@@ -294,18 +285,14 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
         </div>
       </div>
 
-      {/* Modal de Adicionar Adquirente */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop com blur */}
           <div 
             className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           ></div>
           
-          {/* Modal Content */}
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-900">Adicionar Adquirente</h2>
               <button
@@ -316,15 +303,12 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
               </button>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-5">
-              {/* Gateway de Pagamentos Info */}
               <div className="text-center">
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Gateway de Pagamentos</h3>
                 <p className="text-sm text-gray-600">Suas transações serão sincronizadas em intervalos pré-definidos.</p>
               </div>
 
-              {/* Selecione a Adquirente */}
               <div>
                 <Label htmlFor="adquirente" className="text-sm font-medium text-gray-700">
                   Selecione a Adquirente
@@ -342,7 +326,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
                 </select>
               </div>
 
-              {/* Intervalo de sincronização */}
               <div>
                 <Label htmlFor="intervaloSincronizacao" className="text-sm font-medium text-gray-700">
                   Intervalo de sincronização
@@ -361,7 +344,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
                 </select>
               </div>
 
-              {/* Horário dos pagamentos */}
               <div>
                 <Label htmlFor="horarioPagamentos" className="text-sm font-medium text-gray-700">
                   Horário dos pagamentos
@@ -382,7 +364,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
 
               
 
-              {/* Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -403,18 +384,14 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
         </div>
       )}
 
-      {/* Modal de Confirmação de Exclusão */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop com blur */}
           <div 
             className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={() => setIsDeleteModalOpen(false)}
           ></div>
           
-          {/* Modal Content */}
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md">
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center gap-3">
                 <div className="bg-red-100 p-2 rounded-lg">
@@ -430,7 +407,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
               </button>
             </div>
 
-            {/* Content */}
             <div className="p-6">
               <p className="text-sm text-gray-700 mb-4">
                 Tem certeza que deseja excluir a adquirente <strong>{selectedAdquirente?.nome}</strong>?
@@ -440,7 +416,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
               </p>
             </div>
 
-            {/* Buttons */}
             <div className="flex gap-3 p-6 pt-0">
               <button
                 type="button"
@@ -460,7 +435,6 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
         </div>
       )}
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image

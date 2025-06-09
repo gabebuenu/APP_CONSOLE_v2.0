@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-// Define props interface
 interface RemessaBancariaTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -17,7 +16,6 @@ interface RemessaBancariaTabProps {
   }>
 }
 
-// Mock data para a tabela
 const remessasMock = [
   {
     id: 1,
@@ -76,7 +74,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
   const handleSubmit = () => {
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
-    // Reset form
     setFormData({
       codigo: '',
       instituicao: '',
@@ -90,7 +87,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
 
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-6">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg">
           {(() => {
@@ -111,7 +107,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       </div>
 
-      {/* Remessa Bancária (CNAB) */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
           <h3 className="text-base font-semibold text-gray-900">Remessa Bancária (CNAB)</h3>
@@ -124,7 +119,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
           </button>
         </div>
 
-        {/* Tabela Desktop */}
         <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
@@ -215,7 +209,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
           </div>
         </div>
 
-        {/* Cards Mobile */}
         <div className="md:hidden space-y-3">
           {remessasMock.map((remessa) => (
             <div key={remessa.id} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
@@ -273,18 +266,14 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       </div>
 
-      {/* Modal de Adicionar Remessa */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop com blur */}
           <div 
             className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           ></div>
           
-          {/* Modal Content */}
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-900">Adicionar Remessa Bancária</h2>
               <button
@@ -295,9 +284,7 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
               </button>
             </div>
 
-            {/* Form */}
             <div className="p-6 space-y-4">
-              {/* Código */}
               <div>
                 <Label htmlFor="codigo" className="text-sm font-medium text-gray-700">
                   Código
@@ -312,7 +299,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Instituição Financeira */}
               <div>
                 <Label htmlFor="instituicao" className="text-sm font-medium text-gray-700">
                   Instituição Financeira
@@ -327,7 +313,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* IP */}
               <div>
                 <Label htmlFor="ip" className="text-sm font-medium text-gray-700">
                   IP
@@ -342,7 +327,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Agência */}
               <div>
                 <Label htmlFor="agencia" className="text-sm font-medium text-gray-700">
                   Agência
@@ -357,7 +341,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Conta */}
               <div>
                 <Label htmlFor="conta" className="text-sm font-medium text-gray-700">
                   Conta
@@ -372,7 +355,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 />
               </div>
 
-              {/* Situação */}
               <div>
                 <Label htmlFor="situacao" className="text-sm font-medium text-gray-700">
                   Situação
@@ -388,7 +370,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 </select>
               </div>
 
-              {/* Padrão */}
               <div>
                 <Label htmlFor="padrao" className="text-sm font-medium text-gray-700">
                   Padrão
@@ -404,7 +385,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                 </select>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -426,7 +406,6 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       )}
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image

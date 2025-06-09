@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 
-// Define props interface
 interface EmailSMTPTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -18,7 +17,6 @@ interface EmailSMTPTabProps {
 export default function EmailSMTPTab({ activeTab, menuItems = [] }: EmailSMTPTabProps) {
   return (
     <>
-      {/* Header mobile com título da aba ativa */}
       <div className="lg:hidden mb-8">
         <div className="flex items-center bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl">
           {(() => {
@@ -39,7 +37,6 @@ export default function EmailSMTPTab({ activeTab, menuItems = [] }: EmailSMTPTab
         </div>
       </div>
 
-      {/* Aviso importante */}
       <div className="mb-8 md:mb-8">
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
           <h4 className="text-sm font-semibold text-yellow-800 mb-2">Aviso importante!</h4>
@@ -49,7 +46,6 @@ export default function EmailSMTPTab({ activeTab, menuItems = [] }: EmailSMTPTab
         </div>
       </div>
 
-      {/* Servidor de E-mail */}
       <div className="mb-8 md:mb-8">
         <h3 className="text-base font-semibold text-gray-900 mb-5">Servidor de E-mail</h3>
         <div className="space-y-5">
@@ -148,7 +144,6 @@ export default function EmailSMTPTab({ activeTab, menuItems = [] }: EmailSMTPTab
         </div>
       </div>
 
-      {/* Imagem mobile */}
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
@@ -160,7 +155,6 @@ export default function EmailSMTPTab({ activeTab, menuItems = [] }: EmailSMTPTab
         </div>
       </div>
 
-      {/* Botões de ação */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-6">
         <button
           className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"

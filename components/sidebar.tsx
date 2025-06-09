@@ -388,10 +388,8 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <>
-      {/* Overlay apenas para mobile - com opacidade reduzida */}
       {isOpen && <div className="fixed inset-0 z-40 lg:hidden" onClick={toggleSidebar} />}
 
-      {/* Sidebar */}
       <div
         className={`
         h-screen bg-[#efefef] overflow-hidden relative
@@ -399,14 +397,11 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
         ${isOpen ? "w-[260px]" : "w-0"}
       `}
       >
-        {/* Conteúdo da sidebar - só aparece quando aberta */}
         <div className={`${isOpen ? "block" : "hidden"} h-full flex flex-col relative`}>
-          {/* Header da sidebar - com z-index maior */}
           <div className="flex items-center justify-between h-[80px] px-6 sticky top-0 bg-[#efefef] z-20 border-b border-[#efefef]">
             <Link href="/" className="font-['Montserrat'] font-bold text-[#333333] text-base">
               CONSOLE
             </Link>
-            {/* Ícone de fechar */}
             <button
               onClick={toggleSidebar}
               className="p-2 hover:bg-[#d1d1d147] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
@@ -415,7 +410,6 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
             </button>
           </div>
 
-          {/* Campo de pesquisa - com z-index maior */}
           <div className="px-4 py-2 sticky top-[80px] bg-[#efefef] z-20 border-b border-[#efefef]">
             <div className="relative">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#b0b0b0]" />
@@ -426,7 +420,6 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
             </div>
           </div>
 
-          {/* Menu de navegação com scrollbar personalizada e z-index menor */}
           <div className="flex-1 overflow-y-auto custom-scrollbar-sidebar px-4 py-2 pb-8 relative z-10">
             <div className="space-y-1">
               {navItems.map((item, index) => {
@@ -469,7 +462,6 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
                       )}
                     </div>
 
-                    {/* Submenu */}
                     {item.hasSubmenu && item.submenu && renderSubMenu(item.submenu, item.id)}
                   </div>
                 )

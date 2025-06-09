@@ -29,7 +29,6 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
   return (
     <div className="h-[80px] bg-[#efefef] flex items-center justify-between px-4 lg:px-8">
       <div className="flex items-center space-x-4">
-        {/* Mostrar o ícone de abrir apenas quando a sidebar estiver fechada */}
         {!sidebarOpen && (
           <button
             onClick={toggleSidebar}
@@ -57,7 +56,6 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
           />
         </div>
 
-        {/* Dropdown Customizado */}
         <div className="hidden md:flex relative">
           <div
             className={`
@@ -85,13 +83,10 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
             />
           </div>
 
-          {/* Dropdown Menu */}
           {isDropdownOpen && (
             <>
-              {/* Overlay para fechar o dropdown */}
               <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)} />
 
-              {/* Menu do dropdown */}
               <div className="absolute top-12 left-0 right-0 z-20 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden animate-in slide-in-from-top-2 duration-300">
                 <div className="py-2 max-h-64 overflow-y-auto">
                   {companies.map((company, index) => {
@@ -136,7 +131,6 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
                   })}
                 </div>
 
-                {/* Footer do dropdown */}
                 <div className="border-t border-gray-100 px-4 py-2 bg-gray-50/50">
                   <span className="text-xs text-gray-500 font-['Montserrat']">{companies.length} subs disponíveis</span>
                 </div>
