@@ -325,7 +325,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
       {/* Botão de atualizar parâmetros */}
       <div className="flex justify-end mt-6">
         <button
-          className="px-4 py-2 bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
+          className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
         >
           Atualizar Parâmetros
         </button>

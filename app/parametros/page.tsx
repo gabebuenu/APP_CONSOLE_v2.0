@@ -14,6 +14,8 @@ import {
   ChevronRight,
 } from "lucide-react"
 import GeralTab from "./tabs/geral"
+import MinhaContaTab from "./tabs/minhaconta"
+import CapturaTab from "./tabs/capturas"
 
 const menuItems = [
   { id: "geral", icon: Home, label: "Geral", sublabel: "Tela Inicial" },
@@ -34,6 +36,10 @@ export default function ParametrosPage() {
     switch (activeTab) {
       case "geral":
         return <GeralTab activeTab={activeTab} menuItems={menuItems} />
+      case "minha-conta":
+        return <MinhaContaTab activeTab={activeTab} menuItems={menuItems} />
+      case "capturas":
+        return <CapturaTab activeTab={activeTab} menuItems={menuItems} />
       default:
         return <div className="text-gray-500">Conteúdo indisponível.</div>
     }
