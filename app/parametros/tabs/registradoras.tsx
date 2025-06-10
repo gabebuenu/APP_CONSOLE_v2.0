@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Home, CreditCard, Plus, Edit, Trash2, X } from "lucide-react"
+import { Home, CreditCard, Plus, Edit, Trash2, X, AlertCircle } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 
-interface RemessaBancariaTabProps {
+interface RegistradoraTabProps {
   activeTab?: string
   menuItems?: Array<{
     id: string
@@ -16,55 +16,64 @@ interface RemessaBancariaTabProps {
   }>
 }
 
-const remessasMock = [
+const registradorasMock = [
   {
     id: 1,
-    codigo: "218",
-    instituicao: "BANCO BS2",
-    ip: "200.0.1.8",
-    agencia: "888",
-    conta: "",
-    situacao: "Habilitado",
-    padrao: "Desativado",
-    atualizacao: "30/05/2025 15:50:52"
+    codigo: "432",
+    nome: "TAG",
+    ambiente: "Produção",
+    situacao: "Habilitada",
+    dataCriacao: "09/12/2024 15:19:14",
+    dataAtualizacao: "09/12/2024 15:19:14"
   },
   {
     id: 2,
-    codigo: "218",
-    instituicao: "BANCO BS2 S/A",
-    ip: "200.0.1.9",
-    agencia: "999",
-    conta: "",
-    situacao: "Habilitado",
-    padrao: "Habilitado",
-    atualizacao: "30/05/2025 16:10:40"
+    codigo: "421",
+    nome: "CERC",
+    ambiente: "Produção",
+    situacao: "Habilitada",
+    dataCriacao: "09/12/2024 15:17:32",
+    dataAtualizacao: "09/12/2024 15:17:32"
   },
   {
     id: 3,
-    codigo: "756",
-    instituicao: "BANCO SICOOB",
-    ip: "200.0.1.1",
-    agencia: "111",
-    conta: "",
-    situacao: "Habilitado",
-    padrao: "Desativado",
-    atualizacao: "30/05/2025 15:49:28"
+    codigo: "352",
+    nome: "TAG",
+    ambiente: "Homologação",
+    situacao: "Habilitada",
+    dataCriacao: "11/06/2024 13:52:00",
+    dataAtualizacao: "11/06/2024 13:52:00"
+  },
+  {
+    id: 4,
+    codigo: "11",
+    nome: "CERC",
+    ambiente: "Homologação",
+    situacao: "Habilitada",
+    dataCriacao: "21/12/2020 00:00:00",
+    dataAtualizacao: "09/12/2024 15:18:25"
   }
 ]
 
-export default function RemessaBancariaTab({ activeTab, menuItems = [] }: RemessaBancariaTabProps) {
+const registradorasDisponiveis = [
+  { codigo: "432", nome: "TAG" },
+  { codigo: "421", nome: "CERC" },
+  { codigo: "352", nome: "TAG" },
+  { codigo: "11", nome: "CERC" }
+]
+
+export default function RegistradoraTab({ activeTab, menuItems = [] }: RegistradoraTabProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({
-    codigo: '',
-    instituicao: '',
-    ip: '',
-    agencia: '',
-    conta: '',
-    situacao: 'Habilitado',
-    padrao: 'Desativado'
+    registradora: '',
+    registroRecebiveis: 'REGISTRAR TODAS...',
+    tipoAmbiente: '',
+    usuario: '',
+    senha: '',
+    habilitada: true
   })
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -75,13 +84,12 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
     setFormData({
-      codigo: '',
-      instituicao: '',
-      ip: '',
-      agencia: '',
-      conta: '',
-      situacao: 'Habilitado',
-      padrao: 'Desativado'
+      registradora: '',
+      registroRecebiveis: 'REGISTRAR TODAS...',
+      tipoAmbiente: '',
+      usuario: '',
+      senha: '',
+      habilitada: true
     })
   }
 
@@ -98,7 +106,7 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
                   <IconComponent className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-lg font-bold text-gray-900">{activeItem?.label || 'Remessa Bancária'}</h1>
+                  <h1 className="text-lg font-bold text-gray-900">{activeItem?.label || 'Registradoras'}</h1>
                   {activeItem?.sublabel && <p className="text-xs text-gray-600 mt-1">{activeItem.sublabel}</p>}
                 </div>
               </>
@@ -107,10 +115,21 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       </div>
 
-      {/* Remessa Bancária (CNAB) */}
+      <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex">
+          <AlertCircle className="h-5 w-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0" />
+          <div>
+            <h4 className="text-sm font-medium text-blue-900 mb-1">Informação importante</h4>
+            <p className="text-sm text-blue-700">
+              Não é possível excluir uma registradora, apenas modificá-la.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-          <h3 className="text-base font-semibold text-gray-900">Remessa Bancária (CNAB)</h3>
+          <h3 className="text-base font-semibold text-gray-900">Registradoras</h3>
           <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 px-4 py-2 bg-[#169BFF] text-white text-sm font-medium rounded-md shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] self-start sm:self-auto"
@@ -120,89 +139,71 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
           </button>
         </div>
 
-        {/* Tabela Desktop */}
         <div className="hidden md:block bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Cód.
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    #
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Instituição / IP
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Registradora
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Agência
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Ambiente
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Conta
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Situação
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Status
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Data Criação
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Padrão
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Data Atualização
                   </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Atualização
-                  </th>
-                  <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
-                    Ações
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide"> 
+                    Gerenciar
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {remessasMock.map((remessa) => (
-                  <tr key={remessa.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium text-gray-900"> 
-                      {remessa.codigo}
+                {registradorasMock.map((registradora) => (
+                  <tr key={registradora.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-3 py-3 whitespace-nowrap text-xs font-medium text-gray-900"> 
+                      {registradora.codigo} - {registradora.nome}
                     </td>
-                    <td className="px-1 py-2"> 
-                      <div className="max-w-[120px]">
-                        <div className="text-xs font-medium text-gray-900 truncate">{remessa.instituicao}</div>
-                        <div className="text-xs text-gray-500">{remessa.ip}</div>
-                      </div>
+                    <td className="px-3 py-3 whitespace-nowrap text-xs text-gray-900"> 
+                      {registradora.nome}
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> 
-                      {remessa.agencia}
+                    <td className="px-3 py-3 whitespace-nowrap text-xs text-gray-900"> 
+                      {registradora.ambiente}
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs text-gray-900"> 
-                      {remessa.conta || "-"}
-                    </td>
-                    <td className="px-1 py-2 whitespace-nowrap"> 
-                      <span className={`inline-flex px-1.5 py-0.5 text-xs font-semibold rounded-full ${
-                        remessa.situacao === 'Habilitado'
+                    <td className="px-3 py-3 whitespace-nowrap"> 
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        registradora.situacao === 'Habilitada'
                           ? 'bg-green-100 text-green-800'
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {remessa.situacao}
+                        {registradora.situacao}
                       </span>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap">
-                      <span className={`inline-flex px-1.5 py-0.5 text-xs font-semibold rounded-full ${
-                        remessa.padrao === 'Habilitado'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {remessa.padrao}
-                      </span>
-                    </td>
-                    <td className="px-1 py-2 text-xs text-gray-900"> 
-                      <div className="max-w-[80px]"> 
-                        <div className="text-xs">{remessa.atualizacao.split(' ')[0]}</div>
-                        <div className="text-xs text-gray-500">{remessa.atualizacao.split(' ')[1]}</div>
+                    <td className="px-3 py-3 text-xs text-gray-900"> 
+                      <div className="max-w-[100px]"> 
+                        <div className="text-xs">{registradora.dataCriacao.split(' ')[0]}</div>
+                        <div className="text-xs text-gray-500">{registradora.dataCriacao.split(' ')[1]}</div>
                       </div>
                     </td>
-                    <td className="px-1 py-2 whitespace-nowrap text-xs font-medium"> 
-                      <div className="flex items-center gap-1">
-                        <button className="text-red-600 hover:text-red-900 px-1.5 py-1 text-xs bg-red-50 rounded transition-colors">
-                          Excluir
-                        </button>
-                        <button className="text-indigo-600 hover:text-indigo-900 px-1.5 py-1 text-xs bg-indigo-50 rounded transition-colors">
-                          Editar
-                        </button>
+                    <td className="px-3 py-3 text-xs text-gray-900"> 
+                      <div className="max-w-[100px]"> 
+                        <div className="text-xs">{registradora.dataAtualizacao.split(' ')[0]}</div>
+                        <div className="text-xs text-gray-500">{registradora.dataAtualizacao.split(' ')[1]}</div>
                       </div>
+                    </td>
+                    <td className="px-3 py-3 whitespace-nowrap text-xs font-medium"> 
+                      <button className="text-indigo-600 hover:text-indigo-900 px-2 py-1 text-xs bg-indigo-50 rounded transition-colors">
+                        Editar
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -212,55 +213,42 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
 
         <div className="md:hidden space-y-3">
-          {remessasMock.map((remessa) => (
-            <div key={remessa.id} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+          {registradorasMock.map((registradora) => (
+            <div key={registradora.id} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-medium text-gray-900">Código: {remessa.codigo}</span>
+                    <span className="text-sm font-medium text-gray-900">
+                      {registradora.codigo} - {registradora.nome}
+                    </span>
                   </div>
-                  <div className="text-sm font-medium text-gray-900 mb-1">{remessa.instituicao}</div>
-                  <div className="text-xs text-gray-500 mb-2">{remessa.ip}</div>
+                  <div className="text-sm text-gray-600 mb-2">{registradora.ambiente}</div>
                   <div className="flex gap-2 mb-2">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      remessa.situacao === 'Habilitado'
+                      registradora.situacao === 'Habilitada'
                         ? 'bg-green-100 text-green-800'
                         : 'bg-red-100 text-red-800'
                     }`}>
-                      {remessa.situacao}
-                    </span>
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      remessa.padrao === 'Habilitado'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      Padrão: {remessa.padrao}
+                      {registradora.situacao}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+              <div className="grid grid-cols-1 gap-2 text-xs mb-3">
                 <div>
-                  <span className="text-gray-500">Agência:</span>
-                  <div className="font-medium text-gray-900">{remessa.agencia}</div>
+                  <span className="text-gray-500">Data Criação:</span>
+                  <div className="font-medium text-gray-900">{registradora.dataCriacao}</div>
                 </div>
                 <div>
-                  <span className="text-gray-500">Conta:</span>
-                  <div className="font-medium text-gray-900">{remessa.conta || "-"}</div>
+                  <span className="text-gray-500">Data Atualização:</span>
+                  <div className="font-medium text-gray-900">{registradora.dataAtualizacao}</div>
                 </div>
-              </div>
-
-              <div className="text-xs text-gray-500 mb-3">
-                Atualização: {remessa.atualizacao}
               </div>
 
               <div className="flex gap-2">
-                <button className="flex-1 text-red-600 hover:text-red-900 px-3 py-2 text-xs bg-red-50 rounded transition-colors">
-                  Excluir
-                </button>
                 <button className="flex-1 text-indigo-600 hover:text-indigo-900 px-3 py-2 text-xs bg-indigo-50 rounded transition-colors">
-                  Alterar
+                  Editar
                 </button>
               </div>
             </div>
@@ -277,7 +265,7 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
 
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Adicionar Remessa Bancária</h2>
+              <h2 className="text-xl font-bold text-gray-900">Adicionar Registradora</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -287,118 +275,120 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
             </div>
 
             <div className="p-6 space-y-4">
-              <div>
-                <Label htmlFor="codigo" className="text-sm font-medium text-gray-700">
-                  Código
-                </Label>
-                <Input
-                  id="codigo"
-                  type="text"
-                  value={formData.codigo}
-                  onChange={(e) => handleInputChange('codigo', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 218"
-                />
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                <div className="flex">
+                  <AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-yellow-900 mb-1">Aviso</h4>
+                    <p className="text-sm text-yellow-700">
+                      Após o cadastro, todas as transmissões serão realizadas no horário de janela da registradora selecionada.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div>
-                <Label htmlFor="instituicao" className="text-sm font-medium text-gray-700">
-                  Instituição Financeira
-                </Label>
-                <Input
-                  id="instituicao"
-                  type="text"
-                  value={formData.instituicao}
-                  onChange={(e) => handleInputChange('instituicao', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: BANCO BS2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="ip" className="text-sm font-medium text-gray-700">
-                  IP
-                </Label>
-                <Input
-                  id="ip"
-                  type="text"
-                  value={formData.ip}
-                  onChange={(e) => handleInputChange('ip', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 200.0.1.8"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="agencia" className="text-sm font-medium text-gray-700">
-                  Agência
-                </Label>
-                <Input
-                  id="agencia"
-                  type="text"
-                  value={formData.agencia}
-                  onChange={(e) => handleInputChange('agencia', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 888"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="conta" className="text-sm font-medium text-gray-700">
-                  Conta
-                </Label>
-                <Input
-                  id="conta"
-                  type="text"
-                  value={formData.conta}
-                  onChange={(e) => handleInputChange('conta', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Número da conta"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="situacao" className="text-sm font-medium text-gray-700">
-                  Situação
+                <Label htmlFor="registradora" className="text-sm font-medium text-gray-700">
+                  Registradora
                 </Label>
                 <select
-                  id="situacao"
-                  value={formData.situacao}
-                  onChange={(e) => handleInputChange('situacao', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  id="registradora"
+                  value={formData.registradora}
+                  onChange={(e) => handleInputChange('registradora', e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
-                  <option value="Habilitado">Habilitado</option>
-                  <option value="Desabilitado">Desabilitado</option>
+                  <option value="">Selecione...</option>
+                  {registradorasDisponiveis.map((reg) => (
+                    <option key={`${reg.codigo}-${reg.nome}`} value={`${reg.codigo}-${reg.nome}`}>
+                      {reg.codigo} - {reg.nome}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div>
-                <Label htmlFor="padrao" className="text-sm font-medium text-gray-700">
-                  Padrão
+                <Label htmlFor="registroRecebiveis" className="text-sm font-medium text-gray-700">
+                  Registro de recebíveis
                 </Label>
                 <select
-                  id="padrao"
-                  value={formData.padrao}
-                  onChange={(e) => handleInputChange('padrao', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  id="registroRecebiveis"
+                  value={formData.registroRecebiveis}
+                  onChange={(e) => handleInputChange('registroRecebiveis', e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
-                  <option value="Desativado">Desativado</option>
-                  <option value="Habilitado">Habilitado</option>
+                  <option value="REGISTRAR TODAS...">REGISTRAR TODAS...</option>
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div>
+                <Label htmlFor="tipoAmbiente" className="text-sm font-medium text-gray-700">
+                  Tipo de Ambiente
+                </Label>
+                <select
+                  id="tipoAmbiente"
+                  value={formData.tipoAmbiente}
+                  onChange={(e) => handleInputChange('tipoAmbiente', e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                >
+                  <option value="">Selecione...</option>
+                  <option value="Produção">Produção</option>
+                  <option value="Homologação">Homologação</option>
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="usuario" className="text-sm font-medium text-gray-700">
+                  Usuário (client_id)
+                </Label>
+                <Input
+                  id="usuario"
+                  type="text"
+                  value={formData.usuario}
+                  onChange={(e) => handleInputChange('usuario', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Digite o client_id"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="senha" className="text-sm font-medium text-gray-700">
+                  Senha (client_secret)
+                </Label>
+                <Input
+                  id="senha"
+                  type="password"
+                  value={formData.senha}
+                  onChange={(e) => handleInputChange('senha', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Digite o client_secret"
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  id="habilitada"
+                  type="checkbox"
+                  checked={formData.habilitada}
+                  onChange={(e) => handleInputChange('habilitada', e.target.checked)}
+                  className="h-4 w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300 rounded"
+                />
+                <Label htmlFor="habilitada" className="ml-2 text-sm font-medium text-gray-700">
+                  Quero habilitar a registradora
+                </Label>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
                 >
                   Cancelar
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-[#169BFF] border border-transparent rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors"
+                  className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
                 >
                   Adicionar
                 </button>

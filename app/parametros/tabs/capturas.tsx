@@ -251,10 +251,10 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
           
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Adicionar Captura</h2>
+              <h2 className="text-xl font-bold text-gray-900">Adicionar Captura</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -274,7 +274,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                   id="captura"
                   value={formData.captura}
                   onChange={(e) => handleInputChange('captura', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
                   <option value="">Selecione...</option>
                   {/* <option value="stone">Stone</option>
@@ -293,7 +293,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                   type="url"
                   value={formData.url}
                   onChange={(e) => handleInputChange('url', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                   placeholder="https://api.exemplo.com/captura"
                 />
               </div>
@@ -307,7 +307,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                   type="text"
                   value={formData.usuario}
                   onChange={(e) => handleInputChange('usuario', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 />
               </div>
 
@@ -320,7 +320,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                   type="password"
                   value={formData.senha}
                   onChange={(e) => handleInputChange('senha', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 />
               </div>
 
@@ -333,7 +333,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                   type="text"
                   value={formData.token}
                   onChange={(e) => handleInputChange('token', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 />
               </div>
 
@@ -344,7 +344,7 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                     type="checkbox"
                     checked={formData.notificacoesPush}
                     onChange={(e) => handleInputChange('notificacoesPush', e.target.checked)}
-                    className="h-4 w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300 rounded"
+                    className="h-4 bg-[#F2F2F2] border-0 rounded-xl w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300"
                   />
                   <Label htmlFor="notificacoes" className="text-sm text-gray-700">
                     Quero ativar as notificações PUSH
@@ -365,17 +365,17 @@ export default function CapturaTab({ activeTab, menuItems = [] }: CapturaTabProp
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-[#169BFF] border border-transparent rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors"
+                  className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
                 >
                   Adicionar
                 </button>

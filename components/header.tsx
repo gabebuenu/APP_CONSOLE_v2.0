@@ -150,7 +150,7 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
         </div>
 
         <Avatar className="w-[50px] h-[50px] bg-white rounded-full border-[0.5px] border-[#cacaca] cursor-pointer hover:border-[#999999] transition-all duration-200 hover:scale-105">
-          <AvatarImage src="./movingpayy.png" alt="MovingPay Logo" className="object-contain p-2" />
+          <AvatarImage src="./paymoving.png" alt="MovingPay Logo" className="object-contain p-2" />
         </Avatar>
       </div>
     </div>

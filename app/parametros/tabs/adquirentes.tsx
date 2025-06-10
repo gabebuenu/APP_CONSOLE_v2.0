@@ -294,7 +294,7 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
           
           <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Adicionar Adquirente</h2>
+              <h2 className="text-xl font-bold text-gray-900">Adicionar Adquirente</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -317,7 +317,7 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
                   id="adquirente"
                   value={formData.adquirente}
                   onChange={(e) => handleInputChange('adquirente', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl block w-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
                   <option value="">Selecione...</option>
                   <option value="getnet">GETNET S/A</option>
@@ -334,7 +334,7 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
                   id="intervaloSincronizacao"
                   value={formData.intervaloSincronizacao}
                   onChange={(e) => handleInputChange('intervaloSincronizacao', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
                   <option value="">Selecione...</option>
                   <option value="1h">A cada 1 hora</option>
@@ -352,7 +352,7 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
                   id="horarioPagamentos"
                   value={formData.horarioPagamentos}
                   onChange={(e) => handleInputChange('horarioPagamentos', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  className="mt-1 block w-full px-3 py-2 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
                   <option value="">Selecione...</option>
                   <option value="08:00">08:00</option>
@@ -364,17 +364,17 @@ export default function AdquirentesTab({ activeTab, menuItems = [] }: Adquirente
 
               
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-[#169BFF] border border-transparent rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors"
+                  className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
                 >
                   Adicionar
                 </button>

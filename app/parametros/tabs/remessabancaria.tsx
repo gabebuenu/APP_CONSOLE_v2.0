@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Home, CreditCard, Plus, Edit, Trash2, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Image from "next/image"
 
 interface RemessaBancariaTabProps {
   activeTab?: string
@@ -52,19 +51,36 @@ const remessasMock = [
   }
 ]
 
+const bancos = [
+  "BANCO BS2",
+  "BANCO BS2 S/A",
+  "BANCO SICOOB",
+  "BANCO DO BRASIL",
+  "CAIXA ECONÔMICA FEDERAL",
+  "ITAÚ UNIBANCO",
+  "BRADESCO",
+  "SANTANDER"
+]
+
 export default function RemessaBancariaTab({ activeTab, menuItems = [] }: RemessaBancariaTabProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({
-    codigo: '',
-    instituicao: '',
-    ip: '',
+    banco: '',
+    sequenciaAtual: '',
+    razaoSocial: '',
+    cpfCnpj: '',
+    convenio: '',
     agencia: '',
+    digitoAgencia: '',
     conta: '',
-    situacao: 'Habilitado',
-    padrao: 'Desativado'
+    digitoConta: '',
+    descricaoExtrato: '',
+    zerarSequenciaDiariamente: false,
+    utilizarComoPadrao: false,
+    habilitarAposCadastro: true
   })
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -75,13 +91,19 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
     console.log('Dados do formulário:', formData)
     setIsModalOpen(false)
     setFormData({
-      codigo: '',
-      instituicao: '',
-      ip: '',
+      banco: '',
+      sequenciaAtual: '',
+      razaoSocial: '',
+      cpfCnpj: '',
+      convenio: '',
       agencia: '',
+      digitoAgencia: '',
       conta: '',
-      situacao: 'Habilitado',
-      padrao: 'Desativado'
+      digitoConta: '',
+      descricaoExtrato: '',
+      zerarSequenciaDiariamente: false,
+      utilizarComoPadrao: false,
+      habilitarAposCadastro: true
     })
   }
 
@@ -273,132 +295,227 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
             onClick={() => setIsModalOpen(false)}
           ></div>
           
-          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Adicionar Remessa Bancária</h2>
+              <h2 className="text-xl font-bold text-gray-900">Cadastrar Remessa</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             <div className="p-6 space-y-4">
-              <div>
-                <Label htmlFor="codigo" className="text-sm font-medium text-gray-700">
-                  Código
-                </Label>
-                <Input
-                  id="codigo"
-                  type="text"
-                  value={formData.codigo}
-                  onChange={(e) => handleInputChange('codigo', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 218"
-                />
+              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4">
+                <h3 className="text-sm font-semibold text-yellow-800 mb-2">Aviso importante: Número sequencial!</h3>
+                <p className="text-sm text-yellow-700">
+                  Caso você já utilize a remessa bancária, é necessário informar o número sequencial atual.
+                </p>
               </div>
 
               <div>
-                <Label htmlFor="instituicao" className="text-sm font-medium text-gray-700">
-                  Instituição Financeira
-                </Label>
-                <Input
-                  id="instituicao"
-                  type="text"
-                  value={formData.instituicao}
-                  onChange={(e) => handleInputChange('instituicao', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: BANCO BS2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="ip" className="text-sm font-medium text-gray-700">
-                  IP
-                </Label>
-                <Input
-                  id="ip"
-                  type="text"
-                  value={formData.ip}
-                  onChange={(e) => handleInputChange('ip', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 200.0.1.8"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="agencia" className="text-sm font-medium text-gray-700">
-                  Agência
-                </Label>
-                <Input
-                  id="agencia"
-                  type="text"
-                  value={formData.agencia}
-                  onChange={(e) => handleInputChange('agencia', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Ex: 888"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="conta" className="text-sm font-medium text-gray-700">
-                  Conta
-                </Label>
-                <Input
-                  id="conta"
-                  type="text"
-                  value={formData.conta}
-                  onChange={(e) => handleInputChange('conta', e.target.value)}
-                  className="mt-1 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                  placeholder="Número da conta"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="situacao" className="text-sm font-medium text-gray-700">
-                  Situação
+                <Label htmlFor="banco" className="text-sm font-medium text-gray-700">
+                  Banco <span className="text-red-500">*</span>
                 </Label>
                 <select
-                  id="situacao"
-                  value={formData.situacao}
-                  onChange={(e) => handleInputChange('situacao', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  id="banco"
+                  value={formData.banco}
+                  onChange={(e) => handleInputChange('banco', e.target.value)}
+                  className="mt-1 block w-full bg-[#F2F2F2] px-3 py-2 border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
                 >
-                  <option value="Habilitado">Habilitado</option>
-                  <option value="Desabilitado">Desabilitado</option>
+                  <option value="">Selecione...</option>
+                  {bancos.map((banco) => (
+                    <option key={banco} value={banco}>{banco}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
-                <Label htmlFor="padrao" className="text-sm font-medium text-gray-700">
-                  Padrão
+                <Label htmlFor="sequenciaAtual" className="text-sm font-medium text-gray-700">
+                  Sequência Atual
                 </Label>
-                <select
-                  id="padrao"
-                  value={formData.padrao}
-                  onChange={(e) => handleInputChange('padrao', e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
-                >
-                  <option value="Desativado">Desativado</option>
-                  <option value="Habilitado">Habilitado</option>
-                </select>
+                <Input
+                  id="sequenciaAtual"
+                  type="text"
+                  value={formData.sequenciaAtual}
+                  onChange={(e) => handleInputChange('sequenciaAtual', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Número da sequência"
+                />
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div>
+                <Label htmlFor="razaoSocial" className="text-sm font-medium text-gray-700">
+                  Razão Social <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="razaoSocial"
+                  type="text"
+                  value={formData.razaoSocial}
+                  onChange={(e) => handleInputChange('razaoSocial', e.target.value)}
+                  className="mt-1 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Nome da empresa"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="cpfCnpj" className="text-sm font-medium text-gray-700">
+                  CPF / CNPJ <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="cpfCnpj"
+                  type="text"
+                  value={formData.cpfCnpj}
+                  onChange={(e) => handleInputChange('cpfCnpj', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="000.000.000-00 ou 00.000.000/0000-00"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="convenio" className="text-sm font-medium text-gray-700">
+                  Convênio
+                </Label>
+                <Input
+                  id="convenio"
+                  type="text"
+                  value={formData.convenio}
+                  onChange={(e) => handleInputChange('convenio', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Número do convênio"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="agencia" className="text-sm font-medium text-gray-700">
+                    Agência <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="agencia"
+                    type="text"
+                    value={formData.agencia}
+                    onChange={(e) => handleInputChange('agencia', e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="0000"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="digitoAgencia" className="text-sm font-medium text-gray-700">
+                    Dígito Agência
+                  </Label>
+                  <Input
+                    id="digitoAgencia"
+                    type="text"
+                    value={formData.digitoAgencia}
+                    onChange={(e) => handleInputChange('digitoAgencia', e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="0"
+                    maxLength={1}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="conta" className="text-sm font-medium text-gray-700">
+                    Conta <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="conta"
+                    type="text"
+                    value={formData.conta}
+                    onChange={(e) => handleInputChange('conta', e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="00000000"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="digitoConta" className="text-sm font-medium text-gray-700">
+                    Dígito da Conta <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="digitoConta"
+                    type="text"
+                    value={formData.digitoConta}
+                    onChange={(e) => handleInputChange('digitoConta', e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="0"
+                    maxLength={1}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="descricaoExtrato" className="text-sm font-medium text-gray-700">
+                  Descrição no Extrato <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="descricaoExtrato"
+                  type="text"
+                  value={formData.descricaoExtrato}
+                  onChange={(e) => handleInputChange('descricaoExtrato', e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Descrição que aparecerá no extrato"
+                />
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center">
+                  <input
+                    id="zerarSequencia"
+                    type="checkbox"
+                    checked={formData.zerarSequenciaDiariamente}
+                    onChange={(e) => handleInputChange('zerarSequenciaDiariamente', e.target.checked)}
+                    className="h-4 w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300 rounded"
+                  />
+                  <Label htmlFor="zerarSequencia" className="ml-2 text-sm text-gray-700">
+                    Zerar sequência diariamente.
+                  </Label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    id="utilizarPadrao"
+                    type="checkbox"
+                    checked={formData.utilizarComoPadrao}
+                    onChange={(e) => handleInputChange('utilizarComoPadrao', e.target.checked)}
+                    className="h-4 w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300 rounded"
+                  />
+                  <Label htmlFor="utilizarPadrao" className="ml-2 text-sm text-gray-700">
+                    Utilizar essa remessa como padrão se necessário.
+                  </Label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    id="habilitarRemessa"
+                    type="checkbox"
+                    checked={formData.habilitarAposCadastro}
+                    onChange={(e) => handleInputChange('habilitarAposCadastro', e.target.checked)}
+                    className="h-4 w-4 text-[#169BFF] focus:ring-[#169BFF] border-gray-300 rounded"
+                  />
+                  <Label htmlFor="habilitarRemessa" className="ml-2 text-sm text-gray-700">
+                    Habilitar remessa após o cadastro.
+                  </Label>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
                 >
                   Cancelar
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-[#169BFF] border border-transparent rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors"
+                  className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
                 >
-                  Adicionar
+                  Cadastrar
                 </button>
               </div>
             </div>
@@ -407,13 +524,8 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
       )}
 
       <div className="lg:hidden mt-8 mb-6">
-        <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
-          <Image
-            src="/paymoving.png"
-            alt="Dashboard Preview"
-            fill
-            className="object-contain"
-          />
+        <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg bg-gray-100">
+          <div className="text-gray-500 text-sm">Dashboard Preview</div>
         </div>
       </div>
     </>
