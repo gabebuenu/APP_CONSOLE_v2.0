@@ -5,6 +5,7 @@ import { Plus, Search, Eye, ChevronLeft, ChevronRight } from "lucide-react"
 import { Input } from "@/components/ui/input" 
 import { Label } from "@/components/ui/label" 
 import Image from "next/image"
+import MovingPay from "@/public/paymoving.png"
 
 const usuariosConsoleMock = [
   {
@@ -280,10 +281,10 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
       <div className="lg:hidden mt-4">
         <div className="relative w-full h-[120px] rounded-lg overflow-hidden flex items-center justify-center shadow">
           <Image
-            src="/paymoving.png"
+            src={MovingPay}
             alt="Usuários Console Preview"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
             className="opacity-50"
           />
           <p className="relative z-10 text-white text-base font-bold">Gerenciamento de Usuários</p>

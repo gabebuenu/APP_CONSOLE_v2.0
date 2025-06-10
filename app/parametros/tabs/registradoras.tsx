@@ -5,6 +5,7 @@ import { Home, CreditCard, Plus, Edit, Trash2, X, AlertCircle } from "lucide-rea
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
+import MovingPay from "@/public/paymoving.png"
 
 interface RegistradoraTabProps {
   activeTab?: string
@@ -401,7 +402,7 @@ export default function RegistradoraTab({ activeTab, menuItems = [] }: Registrad
       <div className="lg:hidden mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
-            src="/paymoving.png"
+            src={MovingPay}
             alt="Dashboard Preview"
             fill
             className="object-contain"

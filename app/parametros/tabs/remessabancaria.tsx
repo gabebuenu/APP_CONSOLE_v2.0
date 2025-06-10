@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Home, CreditCard, Plus, Edit, Trash2, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Image from "next/image"
+import MovingPay from "@/public/paymoving.png"
 
 interface RemessaBancariaTabProps {
   activeTab?: string
@@ -523,9 +525,14 @@ export default function RemessaBancariaTab({ activeTab, menuItems = [] }: Remess
         </div>
       )}
 
-      <div className="lg:hidden mt-8 mb-6">
-        <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg bg-gray-100">
-          <div className="text-gray-500 text-sm">Dashboard Preview</div>
+      <div className="lg:hidden mt-10 mb-6">
+        <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
+          <Image
+            src={MovingPay}
+            alt="Dashboard Preview"
+            fill
+            className="object-contain"
+          />
         </div>
       </div>
     </>

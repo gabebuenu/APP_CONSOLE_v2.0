@@ -4,6 +4,7 @@ import { Upload, Home } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
+import MovingPay from "@/public/paymoving.png"
 
 const UploadArea = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <div className="w-full h-[140px] sm:h-[120px] md:h-[140px] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-center hover:border-gray-400 transition-colors cursor-pointer bg-gray-50 active:bg-gray-100 touch-manipulation">
@@ -303,7 +304,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
-            src="/paymoving.png"
+            src={MovingPay}
             alt="Dashboard Preview"
             fill
             className="object-contain"
