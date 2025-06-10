@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import {
@@ -54,13 +56,60 @@ export type SidebarProps = {
   toggleSidebar: () => void
 }
 
-
-
 const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const [expandedMenus, setExpandedMenus] = useState<string[]>([])
   const [expandedSubMenus, setExpandedSubMenus] = useState<string[]>([])
+  const [isNavigating, setIsNavigating] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+
+    // Função para expandir menus baseado na rota atual
+    const expandMenusBasedOnPath = () => {
+      const newExpandedMenus: string[] = []
+      const newExpandedSubMenus: string[] = []
+
+      navItems.forEach((item) => {
+        if (item.hasSubmenu && item.submenu) {
+          // Verifica se algum submenu está ativo
+          const hasActiveSubmenu = item.submenu.some((subItem) => {
+            if (subItem.path && pathname === subItem.path) {
+              return true
+            }
+            if (subItem.hasSubSubmenu && subItem.subSubmenu) {
+              return subItem.subSubmenu.some((subSubItem) => pathname === subSubItem.path)
+            }
+            return false
+          })
+
+          if (hasActiveSubmenu) {
+            newExpandedMenus.push(item.id)
+          }
+
+          // Verifica submenus para expandir
+          item.submenu.forEach((subItem, subIndex) => {
+            if (subItem.hasSubSubmenu && subItem.subSubmenu) {
+              const hasActiveSubSubmenu = subItem.subSubmenu.some((subSubItem) => pathname === subSubItem.path)
+              if (hasActiveSubSubmenu) {
+                const subMenuId = `${item.id}-${subItem.id || subIndex}`
+                newExpandedSubMenus.push(subMenuId)
+              }
+            }
+          })
+        }
+      })
+
+      setExpandedMenus(newExpandedMenus)
+      setExpandedSubMenus(newExpandedSubMenus)
+    }
+
+    expandMenusBasedOnPath()
+    // Reset o estado de navegação quando a rota mudar
+    setIsNavigating(false)
+  }, [pathname])
 
   const toggleMenu = (menuId: string) => {
     setExpandedMenus((prev) => (prev.includes(menuId) ? prev.filter((id) => id !== menuId) : [...prev, menuId]))
@@ -72,7 +121,19 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
     )
   }
 
-  const handleNavigation = (path: string) => {
+  // Função completamente refatorada para garantir navegação
+  const handleNavigation = (path: string, event: React.MouseEvent) => {
+    // Previne comportamento padrão para garantir controle total
+    event.preventDefault()
+    event.stopPropagation()
+
+    // Evita navegações duplicadas
+    if (isNavigating || pathname === path) return
+
+    // Marca que estamos navegando
+    setIsNavigating(true)
+
+    // Navega para a rota
     router.push(path)
   }
 
@@ -289,6 +350,24 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
     },
   ]
 
+  const isItemActive = (item: any) => {
+    if (item.path) {
+      return pathname === item.path
+    }
+    if (item.hasSubmenu && item.submenu) {
+      return item.submenu.some((subItem: any) => {
+        if (subItem.path && pathname === subItem.path) {
+          return true
+        }
+        if (subItem.hasSubSubmenu && subItem.subSubmenu) {
+          return subItem.subSubmenu.some((subSubItem: any) => pathname === subSubItem.path)
+        }
+        return false
+      })
+    }
+    return false
+  }
+
   const renderSubMenu = (submenu: any[], parentId: string, _level = 1) => {
     return (
       <div
@@ -310,11 +389,11 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
                     hover:bg-[#d1d1d147] transition-all duration-300 ease-in-out
                     transform hover:translate-x-1 hover:scale-[1.02]
                     ${isActive ? "bg-[#169BFF]" : ""}`}
-                  onClick={() => {
+                  onClick={(e) => {
                     if (subItem.hasSubSubmenu) {
                       toggleSubMenu(subMenuId)
                     } else if (subItem.path) {
-                      handleNavigation(subItem.path)
+                      handleNavigation(subItem.path, e)
                     }
                   }}
                 >
@@ -358,7 +437,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
                               hover:bg-[#d1d1d147] transition-all duration-300 ease-in-out
                               transform hover:translate-x-2 hover:scale-[1.03]
                               ${isSubSubActive ? "bg-[#169BFF]" : ""}`}
-                            onClick={() => subSubItem.path && handleNavigation(subSubItem.path)}
+                            onClick={(e) => subSubItem.path && handleNavigation(subSubItem.path, e)}
                           >
                             <SubSubIconComponent
                               size={16}
@@ -388,11 +467,14 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <>
-      {isOpen && <div className="fixed inset-0 z-40 lg:hidden" onClick={toggleSidebar} />}
+      {/* Overlay que não interfere com os cliques nos itens do menu */}
+      {isOpen && (
+        <div className="fixed inset-0 z-30 lg:hidden bg-black/20" onClick={toggleSidebar} aria-hidden="true" />
+      )}
 
       <div
         className={`
-        h-screen bg-[#efefef] overflow-hidden relative
+        h-screen bg-[#efefef] overflow-hidden relative z-40
         transform transition-all duration-300 ease-in-out
         ${isOpen ? "w-[260px]" : "w-0"}
       `}
@@ -432,22 +514,22 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
                       className={`flex items-center h-[45px] px-4 rounded-[22px] cursor-pointer 
                         transition-all duration-300 ease-in-out transform hover:scale-[1.02]
                         ${item.hasSubmenu ? "hover:bg-[#d1d1d147]" : "hover:bg-[#d1d1d147]"} 
-                        ${item.active ? "bg-[#169BFF] shadow-md" : ""} relative z-10`}
-                      onClick={() => {
+                        ${isItemActive(item) ? "bg-[#169BFF] shadow-md" : ""} relative z-10`}
+                      onClick={(e) => {
                         if (item.hasSubmenu) {
                           toggleMenu(item.id)
                         } else if (item.path) {
-                          handleNavigation(item.path)
+                          handleNavigation(item.path, e)
                         }
                       }}
                     >
                       <IconComponent
                         size={18}
-                        className={`${item.active ? "text-white" : "text-[#333333]"} transition-all duration-300`}
+                        className={`${isItemActive(item) ? "text-white" : "text-[#333333]"} transition-all duration-300`}
                       />
                       <span
                         className={`ml-3 font-['Montserrat'] font-medium text-sm 
-                          ${item.active ? "text-white" : "text-[#333333]"}
+                          ${isItemActive(item) ? "text-white" : "text-[#333333]"}
                           transition-all duration-300`}
                       >
                         {item.text}
@@ -457,7 +539,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
                           size={18}
                           className={`ml-auto transition-all duration-500 ease-in-out
                             ${isExpanded ? "rotate-180 scale-110" : "rotate-0"}
-                            ${item.active ? "text-white" : "text-[#333333]"}`}
+                            ${isItemActive(item) ? "text-white" : "text-[#333333]"}`}
                         />
                       )}
                     </div>

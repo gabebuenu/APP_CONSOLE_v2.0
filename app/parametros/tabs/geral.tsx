@@ -1,10 +1,13 @@
 "use client"
 
+import type React from "react"
+
 import { Upload, Home } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import MovingPay from "@/public/paymoving.png"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const UploadArea = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <div className="w-full h-[140px] sm:h-[120px] md:h-[140px] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-center hover:border-gray-400 transition-colors cursor-pointer bg-gray-50 active:bg-gray-100 touch-manipulation">
@@ -39,7 +42,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
                   <IconComponent className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">{activeItem?.label || 'Geral'}</h1>
+                  <h1 className="text-xl font-bold text-gray-900">{activeItem?.label || "Geral"}</h1>
                   {activeItem?.sublabel && <p className="text-sm text-gray-600 mt-1">{activeItem.sublabel}</p>}
                 </div>
               </>
@@ -65,19 +68,35 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               <Label htmlFor="permitir-duplicar" className="text-sm font-medium text-gray-700">
                 Permitir duplicar CPF / CNPJ
               </Label>
-              <Input
-                id="permitir-duplicar"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="permitir-duplicar"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Permitir</SelectItem>
+                  <SelectItem value="0">0 - Não permitir</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-3">
               <Label htmlFor="envio-acesso" className="text-sm font-medium text-gray-700">
                 Envio acesso EC por e-mail após credenciamento
               </Label>
-              <Input
-                id="envio-acesso"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="envio-acesso"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Permitir</SelectItem>
+                  <SelectItem value="0">0 - Não permitir</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -86,19 +105,35 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               <Label htmlFor="visualizacao-taxas-ec" className="text-sm font-medium text-gray-700">
                 Visualização de taxas do portal EC
               </Label>
-              <Input
-                id="visualizacao-taxas-ec"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="visualizacao-taxas-ec"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Permitir</SelectItem>
+                  <SelectItem value="0">0 - Não permitir</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-3">
               <Label htmlFor="visualizacao-taxas-dist" className="text-sm font-medium text-gray-700">
                 Visualização de taxas do portal distribuidor
               </Label>
-              <Input
-                id="visualizacao-taxas-dist"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="visualizacao-taxas-dist"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Permitir</SelectItem>
+                  <SelectItem value="0">0 - Não permitir</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -106,10 +141,18 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
             <Label htmlFor="credenciamento-ec" className="text-sm font-medium text-gray-700">
               Permitir credenciamento de EC no portal distribuidor
             </Label>
-            <Input
-              id="credenciamento-ec"
-              className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-            />
+            <Select defaultValue="1">
+              <SelectTrigger
+                id="credenciamento-ec"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+              >
+                <SelectValue placeholder="Selecione uma opção" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 - Permitir</SelectItem>
+                <SelectItem value="0">0 - Não permitir</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
@@ -124,6 +167,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="razao-social"
+                defaultValue="Movingpay Teste"
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -133,6 +177,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="documento"
+                defaultValue="39.275.231/0001-43"
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -154,6 +199,8 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="cliente-desde"
+                defaultValue="22/04/2019 08:32:00"
+                readOnly
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -165,6 +212,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
             </Label>
             <Input
               id="email-principal"
+              defaultValue="suporte@movingpay.com.br"
               className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
             />
             <p className="text-xs text-gray-500 mt-2">E-mails para comunicação</p>
@@ -179,19 +227,35 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
             <Label htmlFor="pagamentos-nao-autorizados" className="text-sm font-medium text-gray-700 mb-2 block">
               Pagamentos Não Autorizados até 20h
             </Label>
-            <Input
-              id="pagamentos-nao-autorizados"
-              className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-            />
+            <Select defaultValue="1">
+              <SelectTrigger
+                id="pagamentos-nao-autorizados"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+              >
+                <SelectValue placeholder="Selecione uma opção" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 - Alterar vencimento para o próximo dia</SelectItem>
+                <SelectItem value="0">0 - Não alterar</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <Label htmlFor="documento-favorecido" className="text-sm font-medium text-gray-700 mb-2 block">
               Documento do Favorecido da Conta Bancária igual ao Documento do Cadastro do EC
             </Label>
-            <Input
-              id="documento-favorecido"
-              className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-            />
+            <Select defaultValue="0">
+              <SelectTrigger
+                id="documento-favorecido"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+              >
+                <SelectValue placeholder="Selecione uma opção" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 - Sim</SelectItem>
+                <SelectItem value="0">0 - Não</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
@@ -204,10 +268,18 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               <Label htmlFor="automacao_aut" className="text-sm font-medium text-gray-700 mb-2 block">
                 Antecipação Automática
               </Label>
-              <Input
-                id="automacao_aut"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="automacao_aut"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Habilitar</SelectItem>
+                  <SelectItem value="0">0 - Desabilitar</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <Label htmlFor="hours-corte" className="text-sm font-medium text-gray-700 mb-2 block">
@@ -215,6 +287,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="hours-corte"
+                defaultValue="16:00:00"
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -224,10 +297,18 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
             <Label htmlFor="aprovacao_aut" className="text-sm font-medium text-gray-700 mb-2 block">
               Aprovação Automática
             </Label>
-            <Input
-              id="aprovacao_aut"
-              className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-            />
+            <Select defaultValue="1">
+              <SelectTrigger
+                id="aprovacao_aut"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+              >
+                <SelectValue placeholder="Selecione uma opção" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">1 - Habilitar</SelectItem>
+                <SelectItem value="0">0 - Desabilitar</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
@@ -242,6 +323,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="cod_facilitador_elo"
+                placeholder="Código do Facilitador"
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -257,10 +339,18 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               <Label htmlFor="mensalidade_pos" className="text-sm font-medium text-gray-700 mb-2 block">
                 Mensalidade POS
               </Label>
-              <Input
-                id="mensalidade_pos"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="mensalidade_pos"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Habilitar</SelectItem>
+                  <SelectItem value="0">0 - Desabilitar</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <Label htmlFor="dia_desconto" className="text-sm font-medium text-gray-700 mb-2 block">
@@ -268,6 +358,7 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               </Label>
               <Input
                 id="dia_desconto"
+                defaultValue="5"
                 className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
               />
             </div>
@@ -283,19 +374,35 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
               <Label htmlFor="desconto_chargeback" className="text-sm font-medium text-gray-700 mb-2 block">
                 Desconto Automático de Chargeback
               </Label>
-              <Input
-                id="desconto_chargeback"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="desconto_chargeback"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Habilitar</SelectItem>
+                  <SelectItem value="0">0 - Desabilitar</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <Label htmlFor="desconto_cancelamento" className="text-sm font-medium text-gray-700 mb-2 block">
                 Desconto Automático de Cancelamento
               </Label>
-              <Input
-                id="desconto_cancelamento"
-                className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
-              />
+              <Select defaultValue="1">
+                <SelectTrigger
+                  id="desconto_cancelamento"
+                  className="h-12 md:h-10 text-sm bg-[#F2F2F2] rounded-xl border-0 focus-visible:ring-2 focus-visible:ring-blue-500 touch-manipulation"
+                >
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 - Habilitar</SelectItem>
+                  <SelectItem value="0">0 - Desabilitar</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
@@ -303,19 +410,12 @@ export default function GeralTab({ activeTab, menuItems = [] }: GeralTabProps) {
 
       <div className="lg:hidden mt-10 mb-6">
         <div className="relative w-full h-[280px] rounded-2xl overflow-hidden flex items-center justify-center shadow-lg">
-          <Image
-            src={MovingPay}
-            alt="Dashboard Preview"
-            fill
-            className="object-contain"
-          />
+          <Image src={MovingPay || "/placeholder.svg"} alt="Dashboard Preview" fill className="object-contain" />
         </div>
       </div>
 
       <div className="flex justify-end mt-6">
-        <button
-          className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
-        >
+        <button className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]">
           Atualizar Parâmetros
         </button>
       </div>

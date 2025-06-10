@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <head>
         {/* Favicon */}
-        <link rel="icon" href="../../../paymoving.ico" />
+        <link rel="icon" href="../../../favicon.png" />
       </head>
       <body className="bg-[#f4f5fa] font-['Montserrat']">
         <MainLayout>{children}</MainLayout>

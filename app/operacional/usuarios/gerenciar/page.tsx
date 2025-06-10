@@ -1,18 +1,12 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import {
-  ChevronLeft,
-  ChevronRight,
-  Monitor, 
-  Building2, 
-  Truck,
-} from "lucide-react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { ChevronLeft, ChevronRight, Monitor, Building2, Truck } from "lucide-react"
 
 import ConsoleTab from "./tabs/console"
 import EstabelecimentoTab from "./tabs/estabelecimento"
 import DistribuidorTab from "./tabs/distribuidor"
-
 
 const menuItems = [
   { id: "console", icon: Monitor, label: "Console" },
@@ -21,7 +15,22 @@ const menuItems = [
 ]
 
 export default function GerenciarUsuariosPage() {
-  const [activeTab, setActiveTab] = useState("console") 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [activeTab, setActiveTab] = useState(() => {
+    const tabFromUrl = searchParams.get("tab")
+    const validTabs = menuItems.map((item) => item.id)
+    return tabFromUrl && validTabs.includes(tabFromUrl) ? tabFromUrl : "console"
+  })
+
+  // Função para atualizar a tab e a URL
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId)
+    const newUrl = new URL(window.location.href)
+    newUrl.searchParams.set("tab", tabId)
+    router.replace(newUrl.pathname + newUrl.search, { scroll: false })
+  }
+
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(false)
@@ -30,7 +39,7 @@ export default function GerenciarUsuariosPage() {
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current
       setShowLeftArrow(scrollLeft > 0)
-      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1) 
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 1)
     }
   }
 
@@ -43,9 +52,9 @@ export default function GerenciarUsuariosPage() {
     window.addEventListener("resize", handleResize)
 
     setTimeout(() => {
-      const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${activeTab}"]`);
-      activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }, 0);
+      const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${activeTab}"]`)
+      activeTabElement?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+    }, 0)
 
     return () => {
       currentRef?.removeEventListener("scroll", checkScrollArrows)
@@ -53,22 +62,22 @@ export default function GerenciarUsuariosPage() {
     }
   }, [activeTab])
 
-  const navigateTab = (direction: 'prev' | 'next') => {
-    const currentIndex = menuItems.findIndex(item => item.id === activeTab)
+  const navigateTab = (direction: "prev" | "next") => {
+    const currentIndex = menuItems.findIndex((item) => item.id === activeTab)
     if (currentIndex === -1) return
 
     let nextIndex
-    if (direction === 'next') {
+    if (direction === "next") {
       nextIndex = (currentIndex + 1) % menuItems.length
-    } else { 
+    } else {
       nextIndex = (currentIndex - 1 + menuItems.length) % menuItems.length
     }
     const newActiveTabId = menuItems[nextIndex].id
-    setActiveTab(newActiveTabId)
+    handleTabChange(newActiveTabId)
 
     setTimeout(() => {
       const activeTabElement = scrollContainerRef.current?.querySelector(`[data-tab-id="${newActiveTabId}"]`)
-      activeTabElement?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      activeTabElement?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
     }, 100)
   }
 
@@ -93,7 +102,7 @@ export default function GerenciarUsuariosPage() {
           <div className="relative">
             {showLeftArrow && (
               <button
-                onClick={() => navigateTab('prev')}
+                onClick={() => navigateTab("prev")}
                 className="absolute -left-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-105 transition-transform duration-200"
                 aria-label="Previous tab"
               >
@@ -113,7 +122,7 @@ export default function GerenciarUsuariosPage() {
                   <button
                     key={item.id}
                     data-tab-id={item.id}
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => handleTabChange(item.id)}
                     className={`flex-shrink-0 flex flex-col items-center px-4 py-3 rounded-xl transition-all duration-300 min-w-[90px] touch-manipulation ${
                       isActive
                         ? "bg-[#169BFF] text-white shadow-lg scale-105"
@@ -129,7 +138,7 @@ export default function GerenciarUsuariosPage() {
 
             {showRightArrow && (
               <button
-                onClick={() => navigateTab('next')}
+                onClick={() => navigateTab("next")}
                 className="absolute -right-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md z-20 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-105 transition-transform duration-200"
                 aria-label="Next tab"
               >
@@ -140,7 +149,7 @@ export default function GerenciarUsuariosPage() {
         </div>
       </div>
 
-      <div className="hidden lg:block w-[200px] bg-white flex-shrink-0"> 
+      <div className="hidden lg:block w-[200px] bg-white flex-shrink-0">
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-900 mb-6">Gerenciar Usuários</h2>
         </div>
@@ -151,7 +160,7 @@ export default function GerenciarUsuariosPage() {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleTabChange(item.id)}
                 className={`w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg mb-1 transition-all duration-300 ${
                   isActive ? "bg-blue-50 text-[#169BFF]" : "text-gray-600 hover:bg-gray-50"
                 }`}
@@ -177,11 +186,7 @@ export default function GerenciarUsuariosPage() {
 
       <div className="hidden lg:flex w-[542px] h-screen flex-shrink-0 items-center justify-center p-8 sticky top-0">
         <div className="relative w-full h-[773px] rounded-[25px] overflow-hidden">
-          <img
-            src="/MovingBanner.png" 
-            alt="Dashboard Preview"
-            className="object-cover w-full h-full"
-          />
+          <img src="/MovingBanner.png" alt="Dashboard Preview" className="object-cover w-full h-full" />
         </div>
       </div>
     </div>
