@@ -21,27 +21,38 @@ export default function MainLayout({
   const [mounted, setMounted] = useState(false)
 
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
+    setSidebarOpen((prev) => !prev)
   }
 
+  // Efeito para definir estado inicial baseado no dispositivo
   useEffect(() => {
-    // Marcar que o componente foi montado
-    setMounted(true)
+    if (!mounted) {
+      setMounted(true)
+      // Desktop: SEMPRE inicia aberto
+      // Mobile: SEMPRE inicia fechado
+      setSidebarOpen(isDesktop)
+    }
+  }, [mounted, isDesktop])
 
-    // Definir o estado inicial da sidebar baseado no tamanho da tela
-    setSidebarOpen(isDesktop)
-  }, [isDesktop])
-
-  // Determinar o estado atual da sidebar
-  // - No servidor ou antes da montagem: desktop = true, mobile = false
-  // - Após montagem: usar o estado React
-  const sidebarState = mounted ? sidebarOpen : isDesktop
+  // Efeito separado para lidar com mudanças de tamanho de tela
+  useEffect(() => {
+    if (mounted) {
+      // Se mudou de mobile para desktop, abrir sidebar
+      if (isDesktop && !sidebarOpen) {
+        setSidebarOpen(true)
+      }
+      // Se mudou de desktop para mobile, fechar sidebar
+      if (!isDesktop && sidebarOpen) {
+        setSidebarOpen(false)
+      }
+    }
+  }, [isDesktop, mounted])
 
   return (
     <div className="flex min-h-screen bg-[#efefef]">
       {/* Desktop sidebar */}
       <div className="hidden lg:block h-screen">
-        <Sidebar isOpen={isDesktop || sidebarOpen} toggleSidebar={toggleSidebar} />
+        <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
       {/* Mobile sidebar */}

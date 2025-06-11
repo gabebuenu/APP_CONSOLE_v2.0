@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import {
@@ -63,6 +63,8 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
   const [expandedSubMenus, setExpandedSubMenus] = useState<string[]>([])
   const [isNavigating, setIsNavigating] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isSearching, setIsSearching] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
@@ -350,6 +352,97 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
     },
   ]
 
+  // Função para filtrar itens baseado na pesquisa
+  const filteredNavItems = useMemo(() => {
+    if (!searchTerm.trim()) {
+      setIsSearching(false)
+      return navItems
+    }
+
+    setIsSearching(true)
+
+    // Simular um pequeno delay para mostrar o skeleton
+    const timer = setTimeout(() => setIsSearching(false), 300)
+
+    const searchLower = searchTerm.toLowerCase()
+
+    const filterItems = (items: any[]): any[] => {
+      return items.reduce((acc, item) => {
+        // Verifica se o item principal corresponde à pesquisa
+        const itemMatches = item.text.toLowerCase().includes(searchLower)
+
+        // Se tem submenu, filtra recursivamente
+        if (item.hasSubmenu && item.submenu) {
+          const filteredSubmenu = item.submenu.reduce((subAcc: any[], subItem: any) => {
+            const subItemMatches = subItem.text.toLowerCase().includes(searchLower)
+
+            // Se tem sub-submenu, filtra também
+            if (subItem.hasSubSubmenu && subItem.subSubmenu) {
+              const filteredSubSubmenu = subItem.subSubmenu.filter((subSubItem: any) =>
+                subSubItem.text.toLowerCase().includes(searchLower),
+              )
+
+              // Se encontrou matches no sub-submenu ou o subitem corresponde
+              if (filteredSubSubmenu.length > 0 || subItemMatches) {
+                subAcc.push({
+                  ...subItem,
+                  subSubmenu: filteredSubSubmenu.length > 0 ? filteredSubSubmenu : subItem.subSubmenu,
+                })
+              }
+            } else if (subItemMatches) {
+              // Se não tem sub-submenu mas corresponde à pesquisa
+              subAcc.push(subItem)
+            }
+
+            return subAcc
+          }, [])
+
+          // Se o item principal corresponde ou tem subitens que correspondem
+          if (itemMatches || filteredSubmenu.length > 0) {
+            acc.push({
+              ...item,
+              submenu: filteredSubmenu.length > 0 ? filteredSubmenu : item.submenu,
+            })
+          }
+        } else if (itemMatches) {
+          // Item sem submenu que corresponde à pesquisa
+          acc.push(item)
+        }
+
+        return acc
+      }, [])
+    }
+
+    const result = filterItems(navItems)
+    clearTimeout(timer)
+    setIsSearching(false)
+    return result
+  }, [searchTerm])
+
+  // Expandir automaticamente menus quando há pesquisa
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      const menusToExpand: string[] = []
+      const subMenusToExpand: string[] = []
+
+      filteredNavItems.forEach((item) => {
+        if (item.hasSubmenu && item.submenu && item.submenu.length > 0) {
+          menusToExpand.push(item.id)
+
+          item.submenu.forEach((subItem: any, subIndex: number) => {
+            if (subItem.hasSubSubmenu && subItem.subSubmenu && subItem.subSubmenu.length > 0) {
+              const subMenuId = `${item.id}-${subItem.id || subIndex}`
+              subMenusToExpand.push(subMenuId)
+            }
+          })
+        }
+      })
+
+      setExpandedMenus(menusToExpand)
+      setExpandedSubMenus(subMenusToExpand)
+    }
+  }, [searchTerm, filteredNavItems])
+
   const isItemActive = (item: any) => {
     if (item.path) {
       return pathname === item.path
@@ -367,6 +460,19 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
     }
     return false
   }
+
+  const SearchSkeleton = () => (
+    <div className="space-y-2 px-4 py-2">
+      {[1, 2, 3, 4].map((i) => (
+        <div key={i} className="animate-pulse">
+          <div className="flex items-center h-[45px] px-4 rounded-[22px] bg-gray-200">
+            <div className="w-4 h-4 bg-gray-300 rounded"></div>
+            <div className="ml-3 h-3 bg-gray-300 rounded flex-1"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 
   const renderSubMenu = (submenu: any[], parentId: string, _level = 1) => {
     return (
@@ -494,61 +600,87 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 
           <div className="px-4 py-2 sticky top-[80px] bg-[#efefef] z-20 border-b border-[#efefef]">
             <div className="relative">
-              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#b0b0b0]" />
-              <Input
-                className="pl-10 h-[40px] bg-white border-none shadow-none font-['Montserrat'] text-sm text-[#b0b0b0] focus-visible:ring-0 rounded-[20px] transition-all duration-300 hover:shadow-sm focus:shadow-md"
-                placeholder="Pesquisar"
+              <Search
+                size={18}
+                className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+                  isSearching ? "text-[#169BFF] animate-pulse" : "text-[#b0b0b0]"
+                }`}
               />
+              <Input
+                className={`pl-10 h-[40px] bg-white border-none shadow-none font-['Montserrat'] text-sm text-[#666] focus-visible:ring-0 rounded-[20px] transition-all duration-300 hover:shadow-sm focus:shadow-md ${
+                  isSearching ? "ring-2 ring-[#169BFF]/20" : ""
+                }`}
+                placeholder="Pesquisar menus..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {isSearching && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <div className="w-4 h-4 border-2 border-[#169BFF] border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="flex-1 overflow-y-auto custom-scrollbar-sidebar px-4 py-2 pb-8 relative z-10">
-            <div className="space-y-1">
-              {navItems.map((item, index) => {
-                const IconComponent = item.icon
-                const isExpanded = expandedMenus.includes(item.id)
+            {isSearching ? (
+              <SearchSkeleton />
+            ) : filteredNavItems.length === 0 && searchTerm.trim() ? (
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <Search size={48} className="text-[#b0b0b0] mb-4" />
+                <p className="text-[#888888] font-['Montserrat'] text-sm">
+                  Nenhum resultado encontrado para "{searchTerm}"
+                </p>
+                <p className="text-[#b0b0b0] font-['Montserrat'] text-xs mt-1">Tente pesquisar com outros termos</p>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                {filteredNavItems.map((item, index) => {
+                  const IconComponent = item.icon
+                  const isExpanded = expandedMenus.includes(item.id)
 
-                return (
-                  <div key={index} className="transition-all duration-300 relative">
-                    <div
-                      className={`flex items-center h-[45px] px-4 rounded-[22px] cursor-pointer 
-                        transition-all duration-300 ease-in-out transform hover:scale-[1.02]
-                        ${item.hasSubmenu ? "hover:bg-[#d1d1d147]" : "hover:bg-[#d1d1d147]"} 
-                        ${isItemActive(item) ? "bg-[#169BFF] shadow-md" : ""} relative z-10`}
-                      onClick={(e) => {
-                        if (item.hasSubmenu) {
-                          toggleMenu(item.id)
-                        } else if (item.path) {
-                          handleNavigation(item.path, e)
-                        }
-                      }}
-                    >
-                      <IconComponent
-                        size={18}
-                        className={`${isItemActive(item) ? "text-white" : "text-[#333333]"} transition-all duration-300`}
-                      />
-                      <span
-                        className={`ml-3 font-['Montserrat'] font-medium text-sm 
-                          ${isItemActive(item) ? "text-white" : "text-[#333333]"}
-                          transition-all duration-300`}
+                  return (
+                    <div key={index} className="transition-all duration-300 relative">
+                      <div
+                        className={`flex items-center h-[45px] px-4 rounded-[22px] cursor-pointer 
+                          transition-all duration-300 ease-in-out transform hover:scale-[1.02]
+                          ${item.hasSubmenu ? "hover:bg-[#d1d1d147]" : "hover:bg-[#d1d1d147]"} 
+                          ${isItemActive(item) ? "bg-[#169BFF] shadow-md" : ""} relative z-10`}
+                        onClick={(e) => {
+                          if (item.hasSubmenu) {
+                            toggleMenu(item.id)
+                          } else if (item.path) {
+                            handleNavigation(item.path, e)
+                          }
+                        }}
                       >
-                        {item.text}
-                      </span>
-                      {item.hasSubmenu && (
-                        <ChevronDown
+                        <IconComponent
                           size={18}
-                          className={`ml-auto transition-all duration-500 ease-in-out
-                            ${isExpanded ? "rotate-180 scale-110" : "rotate-0"}
-                            ${isItemActive(item) ? "text-white" : "text-[#333333]"}`}
+                          className={`${isItemActive(item) ? "text-white" : "text-[#333333]"} transition-all duration-300`}
                         />
-                      )}
-                    </div>
+                        <span
+                          className={`ml-3 font-['Montserrat'] font-medium text-sm 
+                            ${isItemActive(item) ? "text-white" : "text-[#333333]"}
+                            transition-all duration-300`}
+                        >
+                          {item.text}
+                        </span>
+                        {item.hasSubmenu && (
+                          <ChevronDown
+                            size={18}
+                            className={`ml-auto transition-all duration-500 ease-in-out
+                              ${isExpanded ? "rotate-180 scale-110" : "rotate-0"}
+                              ${isItemActive(item) ? "text-white" : "text-[#333333]"}`}
+                          />
+                        )}
+                      </div>
 
-                    {item.hasSubmenu && item.submenu && renderSubMenu(item.submenu, item.id)}
-                  </div>
-                )
-              })}
-            </div>
+                      {item.hasSubmenu && item.submenu && renderSubMenu(item.submenu, item.id)}
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
