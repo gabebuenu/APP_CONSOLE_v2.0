@@ -1,7 +1,8 @@
 "use client"
 
+import type React from "react"
+
 import Image from "next/image"
-import MovingPay from "@/public/paymoving.png"
 
 interface DistribuidorTabProps {
   activeTab?: string
@@ -24,10 +25,10 @@ export default function DistribuidorTab({ activeTab, menuItems }: DistribuidorTa
       <div className="mt-8 mb-6">
         <div className="relative w-full h-[200px] rounded-xl overflow-hidden flex items-center justify-center shadow-lg">
           <Image
-            src={MovingPay} 
+            src="/placeholder.svg?height=200&width=400"
             alt="Distribuidor Preview"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="opacity-50"
           />
           <p className="relative z-10 text-white text-lg font-bold">Gerenciamento de Distribuidores</p>

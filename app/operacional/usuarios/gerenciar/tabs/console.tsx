@@ -1,11 +1,11 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { Plus, Search, Eye, ChevronLeft, ChevronRight } from "lucide-react"
-import { Input } from "@/components/ui/input" 
-import { Label } from "@/components/ui/label" 
+import { Input } from "@/components/ui/input"
 import Image from "next/image"
-import MovingPay from "@/public/paymoving.png"
 
 const usuariosConsoleMock = [
   {
@@ -56,7 +56,6 @@ const usuariosConsoleMock = [
     permissoes: "Grupo 5",
     situacao: "Habilitado",
   },
-
   {
     id: 23500,
     nome: "Ana Silva",
@@ -91,7 +90,6 @@ const usuariosConsoleMock = [
   },
 ]
 
-
 interface ConsoleTabProps {
   activeTab?: string
   menuItems?: Array<{
@@ -105,13 +103,14 @@ interface ConsoleTabProps {
 export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 8 
+  const itemsPerPage = 8
 
-  const filteredUsers = usuariosConsoleMock.filter(user =>
-    user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.cpf.includes(searchTerm) ||
-    user.celular.includes(searchTerm) ||
-    user.id.toString().includes(searchTerm)
+  const filteredUsers = usuariosConsoleMock.filter(
+    (user) =>
+      user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.cpf.includes(searchTerm) ||
+      user.celular.includes(searchTerm) ||
+      user.id.toString().includes(searchTerm),
   )
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage)
@@ -191,7 +190,12 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
               currentUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-2 py-1.5 whitespace-nowrap text-sm font-medium text-gray-900">{user.id}</td>
-                  <td className="px-2 py-1.5 whitespace-nowrap text-sm text-gray-900 max-w-[120px] truncate" title={user.nome}>{user.nome}</td>
+                  <td
+                    className="px-2 py-1.5 whitespace-nowrap text-sm text-gray-900 max-w-[120px] truncate"
+                    title={user.nome}
+                  >
+                    {user.nome}
+                  </td>
                   <td className="px-2 py-1.5 whitespace-nowrap text-sm text-gray-500">{user.cpf}</td>
                   <td className="px-2 py-1.5 whitespace-nowrap text-sm text-gray-500">{user.celular}</td>
                   <td className="px-2 py-1.5 whitespace-nowrap text-sm text-gray-500">{user.permissoes}</td>
@@ -246,7 +250,8 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
           </div>
           <div className="hidden sm:flex sm:items-center">
             <p className="text-xs text-gray-700">
-              Página <span className="font-medium">{currentPage}</span> de <span className="font-medium">{totalPages}</span>
+              Página <span className="font-medium">{currentPage}</span> de{" "}
+              <span className="font-medium">{totalPages}</span>
             </p>
           </div>
         </nav>
@@ -281,10 +286,10 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
       <div className="lg:hidden mt-4">
         <div className="relative w-full h-[120px] rounded-lg overflow-hidden flex items-center justify-center shadow">
           <Image
-            src={MovingPay}
+            src="/placeholder.svg?height=120&width=400"
             alt="Usuários Console Preview"
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
             className="opacity-50"
           />
           <p className="relative z-10 text-white text-base font-bold">Gerenciamento de Usuários</p>
