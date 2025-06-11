@@ -215,7 +215,7 @@ export default function ParametrosContent() {
         </nav>
       </div>
 
-      <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8">
+      <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8 mt-0 md:mt-[40px]">
         {renderActiveComponent()}
       </div>
 

@@ -2,10 +2,41 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { Plus, Search, Eye, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Plus, Search, Eye, ChevronLeft, ChevronRight, X, Download } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import { Label } from "@/components/ui/label"
+import MovingPay from "@/public/paymoving.png"
+
+const fusosHorarios = [
+  "UTC-12:00 - Linha Internacional de Data",
+  "UTC-11:00 - Samoa",
+  "UTC-10:00 - Havaí",
+  "UTC-09:00 - Alasca",
+  "UTC-08:00 - Pacífico (Los Angeles)",
+  "UTC-07:00 - Montanha (Denver)",
+  "UTC-06:00 - Central (Chicago)",
+  "UTC-05:00 - Oriental (Nova York)",
+  "UTC-04:00 - Atlântico",
+  "UTC-03:00 - Brasília",
+  "UTC-02:00 - Atlântico Sul",
+  "UTC-01:00 - Açores",
+  "UTC+00:00 - Greenwich (Londres)",
+  "UTC+01:00 - Europa Central",
+  "UTC+02:00 - Europa Oriental",
+  "UTC+03:00 - Moscou",
+  "UTC+04:00 - Golfo",
+  "UTC+05:00 - Paquistão",
+  "UTC+05:30 - Índia",
+  "UTC+06:00 - Bangladesh",
+  "UTC+07:00 - Tailândia",
+  "UTC+08:00 - China",
+  "UTC+09:00 - Japão",
+  "UTC+10:00 - Austrália Oriental",
+  "UTC+11:00 - Ilhas Salomão",
+  "UTC+12:00 - Nova Zelândia",
+]
 
 const usuariosConsoleMock = [
   {
@@ -104,14 +135,20 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 8
+  const [filterStatus, setFilterStatus] = useState("todos")
+  const [showExportDropdown, setShowExportDropdown] = useState(false)
 
-  const filteredUsers = usuariosConsoleMock.filter(
-    (user) =>
+  const filteredUsers = usuariosConsoleMock.filter((user) => {
+    const matchesSearch =
       user.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.cpf.includes(searchTerm) ||
       user.celular.includes(searchTerm) ||
-      user.id.toString().includes(searchTerm),
-  )
+      user.id.toString().includes(searchTerm)
+
+    const matchesStatus = filterStatus === "todos" || user.situacao.toLowerCase() === filterStatus.toLowerCase()
+
+    return matchesSearch && matchesStatus
+  })
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
@@ -126,10 +163,63 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const [formData, setFormData] = useState({
+    cpf: "",
+    dataNascimento: "",
+    nome: "",
+    sobrenome: "",
+    email: "",
+    telefone: "",
+    limiteLancamento: "",
+    limiteAprovacao: "",
+    fusoHorario: "",
+  })
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }))
+  }
+
+  const handleSubmit = () => {
+    console.log("Dados do usuário:", formData)
+    setIsModalOpen(false)
+    setFormData({
+      cpf: "",
+      dataNascimento: "",
+      nome: "",
+      sobrenome: "",
+      email: "",
+      telefone: "",
+      limiteLancamento: "",
+      limiteAprovacao: "",
+      fusoHorario: "",
+    })
+  }
+
   const handleAddUser = () => {
     setIsModalOpen(true)
     console.log("Abrir modal/tela para adicionar novo usuário")
   }
+
+  const handleExportExcel = () => {
+    console.log("Exportando para Excel...")
+    setShowExportDropdown(false)
+  }
+
+  const handleExportCSV = () => {
+    console.log("Exportando para CSV...")
+    setShowExportDropdown(false)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = () => setShowExportDropdown(false)
+    if (showExportDropdown) {
+      document.addEventListener("click", handleClickOutside)
+      return () => document.removeEventListener("click", handleClickOutside)
+    }
+  }, [showExportDropdown])
 
   return (
     <div className="bg-white">
@@ -140,7 +230,7 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
             <Input
               type="text"
               placeholder="Buscar..."
-              className="pl-7 pr-2 py-1 text-sm rounded-md w-full sm:min-w-[180px] focus:ring-blue-500 focus:border-blue-500 h-8"
+              className="pl-7 pr-2 py-1 text-sm bg-[#F2F2F2] border-0 rounded-md w-full sm:min-w-[180px] focus:ring-blue-500 focus:border-blue-500 h-8"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value)
@@ -149,6 +239,46 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
             />
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-gray-400" />
           </div>
+
+          <select
+            value={filterStatus}
+            onChange={(e) => {
+              setFilterStatus(e.target.value)
+              setCurrentPage(1)
+            }}
+            className="px-2 py-1 text-sm bg-[#F2F2F2] border-0 rounded-md focus:ring-blue-500 focus:border-blue-500 h-8"
+          >
+            <option value="todos">Todos</option>
+            <option value="habilitado">Habilitado</option>
+            <option value="desabilitado">Desabilitado</option>
+          </select>
+
+          <div className="relative">
+            <button
+              onClick={() => setShowExportDropdown(!showExportDropdown)}
+              className="flex items-center justify-center px-2.5 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors w-full sm:w-auto h-8"
+            >
+              <Download className="h-3 w-3 mr-1" /> Export
+            </button>
+
+            {showExportDropdown && (
+              <div className="absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg border border-gray-200 z-10">
+                <button
+                  onClick={handleExportExcel}
+                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded-t-md"
+                >
+                  Excel
+                </button>
+                <button
+                  onClick={handleExportCSV}
+                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 rounded-b-md"
+                >
+                  CSV
+                </button>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleAddUser}
             className="flex items-center justify-center px-2.5 py-1 text-sm font-medium text-white bg-[#169BFF] rounded-md hover:bg-[#169affb2] focus:outline-none focus:ring-2 focus:ring-[#169BFF] transition-colors w-full sm:w-auto h-8"
@@ -258,26 +388,172 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
       )}
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4">Adicionar Novo Usuário</h3>
-            <p className="text-gray-600 mb-6">Formulário de adição de usuário aqui...</p>
-            <div className="flex justify-end gap-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
+            onClick={() => setIsModalOpen(false)}
+          ></div>
+
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900">Cadastro de Usuário</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                className="text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
               >
-                Cancelar
+                <X className="h-5 w-5" />
               </button>
-              <button
-                onClick={() => {
-                  alert("Usuário adicionado! (lógica real seria aqui)")
-                  setIsModalOpen(false)
-                }}
-                className="px-4 py-2 text-sm font-medium text-white bg-[#169BFF] rounded-md hover:bg-[#169affb2]"
-              >
-                Salvar
-              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div>
+                <Label htmlFor="cpf" className="text-sm font-medium text-gray-700">
+                  CPF <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="cpf"
+                  type="text"
+                  value={formData.cpf}
+                  onChange={(e) => handleInputChange("cpf", e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="Informe o CPF"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="dataNascimento" className="text-sm font-medium text-gray-700">
+                  Data de Nascimento <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="dataNascimento"
+                  type="date"
+                  value={formData.dataNascimento}
+                  onChange={(e) => handleInputChange("dataNascimento", e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="nome" className="text-sm font-medium text-gray-700">
+                    Nome <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="nome"
+                    type="text"
+                    value={formData.nome}
+                    onChange={(e) => handleInputChange("nome", e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="Nome"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="sobrenome" className="text-sm font-medium text-gray-700">
+                    Sobrenome <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="sobrenome"
+                    type="text"
+                    value={formData.sobrenome}
+                    onChange={(e) => handleInputChange("sobrenome", e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="Sobrenome"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Email <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="email@exemplo.com"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="telefone" className="text-sm font-medium text-gray-700">
+                  Telefone Celular <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="telefone"
+                  type="tel"
+                  value={formData.telefone}
+                  onChange={(e) => handleInputChange("telefone", e.target.value)}
+                  className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                  placeholder="(__) _____-____"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="limiteLancamento" className="text-sm font-medium text-gray-700">
+                    Limite de Lançamento
+                  </Label>
+                  <Input
+                    id="limiteLancamento"
+                    type="text"
+                    value={formData.limiteLancamento}
+                    onChange={(e) => handleInputChange("limiteLancamento", e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="R$ 0,00"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="limiteAprovacao" className="text-sm font-medium text-gray-700">
+                    Limite para Aprovação
+                  </Label>
+                  <Input
+                    id="limiteAprovacao"
+                    type="text"
+                    value={formData.limiteAprovacao}
+                    onChange={(e) => handleInputChange("limiteAprovacao", e.target.value)}
+                    className="mt-1 bg-[#F2F2F2] border-0 rounded-xl text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                    placeholder="R$ 0,00"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="fusoHorario" className="text-sm font-medium text-gray-700">
+                  Fuso horário <span className="text-red-500">*</span>
+                </Label>
+                <select
+                  id="fusoHorario"
+                  value={formData.fusoHorario}
+                  onChange={(e) => handleInputChange("fusoHorario", e.target.value)}
+                  className="mt-1 block w-full bg-[#F2F2F2] px-3 py-2 border-0 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+                >
+                  <option value="">Selecione uma opção...</option>
+                  {fusosHorarios.map((fuso) => (
+                    <option key={fuso} value={fuso}>
+                      {fuso}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end mt-8 pt-6 border-t border-gray-200">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
+                >
+                  Cadastrar
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -286,13 +562,13 @@ export default function ConsoleTab({ activeTab, menuItems }: ConsoleTabProps) {
       <div className="lg:hidden mt-4">
         <div className="relative w-full h-[120px] rounded-lg overflow-hidden flex items-center justify-center shadow">
           <Image
-            src="/placeholder.svg?height=120&width=400"
+            src={MovingPay}
             alt="Usuários Console Preview"
             fill
             style={{ objectFit: "cover" }}
             className="opacity-50"
           />
-          <p className="relative z-10 text-white text-base font-bold">Gerenciamento de Usuários</p>
+          {/* <p className="relative z-10 text-white text-base font-bold">Gerenciamento de Usuários</p> */}
         </div>
       </div>
     </div>

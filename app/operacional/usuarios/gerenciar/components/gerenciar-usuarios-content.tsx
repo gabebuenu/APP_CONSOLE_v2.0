@@ -151,7 +151,8 @@ export default function GerenciarUsuariosContent() {
 
       <div className="hidden lg:block w-[200px] bg-white flex-shrink-0">
         <div className="p-4">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Gerenciar Usuários</h2>
+          <h2 className="text-sm font-medium text-gray-900 mb-1">Gerenciar Usuários</h2>
+          <p className="text-xs text-gray-500 mb-6">Tela Inicial</p>
         </div>
         <nav className="px-2">
           {menuItems.map((item) => {
@@ -180,7 +181,7 @@ export default function GerenciarUsuariosContent() {
         </nav>
       </div>
 
-      <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8">
+      <div className="bg-white flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-4 md:p-6 lg:p-8 mt-0 md:mt-[40px]">
         {renderActiveComponent()}
       </div>
 
