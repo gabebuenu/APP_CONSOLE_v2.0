@@ -1,1 +1,11 @@
-/*    /index.html   200
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "/"
+  to = "/dashboard"
+  status = 302
