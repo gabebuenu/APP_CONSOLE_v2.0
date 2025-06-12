@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -41,13 +40,13 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
 
   return (
     <div className="w-full">
-      <div className="mb-8 w-full">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Empresa</h3>
-        <p className="text-gray-600">Dados comerciais da empresa</p>
+      <div className="mb-6 w-full">
+        <h3 className="text-base font-semibold text-gray-900 mb-2">Empresa</h3>
+        <p className="text-sm text-gray-600">Dados comerciais da empresa</p>
       </div>
 
-      <div className="space-y-8 w-full">
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+      <div className="space-y-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="refExterna" className="text-sm font-medium text-gray-700">
               Ref. Externa
@@ -57,7 +56,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="refExterna"
               value={data.refExterna}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               readOnly
             />
           </div>
@@ -70,7 +69,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="tipoCadastro"
               value={data.tipoCadastro}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -82,12 +81,12 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="cpf"
               value={data.cpf}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="tipoNegocio" className="text-sm font-medium text-gray-700">
               Tipo de negócio
@@ -97,7 +96,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="tipoNegocio"
               value={data.tipoNegocio}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -109,7 +108,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="dataNascimento"
               value={data.dataNascimento}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -121,12 +120,12 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="nomeCompleto"
               value={data.nomeCompleto}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="nomeFantasia" className="text-sm font-medium text-gray-700">
               Nome fantasia
@@ -136,7 +135,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="nomeFantasia"
               value={data.nomeFantasia}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -148,7 +147,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="celular"
               value={data.celular}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -161,12 +160,12 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               type="email"
               value={data.email}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="url" className="text-sm font-medium text-gray-700">
               URL / E-commerce
@@ -176,7 +175,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="url"
               value={data.url}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -188,7 +187,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="horarioFuncionamento"
               value={data.horarioFuncionamento}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -200,12 +199,12 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="shopping"
               value={data.shopping}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="faturamentoMensal" className="text-sm font-medium text-gray-700">
               Faturamento Mensal (R$)
@@ -215,7 +214,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="faturamentoMensal"
               value={data.faturamentoMensal}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -227,7 +226,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="valorPatrimonio"
               value={data.valorPatrimonio}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -239,7 +238,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="plano"
               value={data.plano}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="">Selecione...</option>
               <option value="plano1">Plano 1</option>
@@ -248,7 +247,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="sincronizacao" className="text-sm font-medium text-gray-700">
               Selecione a Sincronização
@@ -258,7 +257,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="sincronizacao"
               value={data.sincronizacao}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="">Selecione...</option>
               <option value="sinc1">Sincronização 1</option>
@@ -275,7 +274,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               value={data.sincronizarAPartirDe}
               onChange={handleChange}
               placeholder="DD/MM/AAAA"
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -287,7 +286,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="vendedor"
               value={data.vendedor}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="">Selecione...</option>
               <option value="vendedor1">Vendedor 1</option>
@@ -296,7 +295,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="registrarRecebiveis" className="text-sm font-medium text-gray-700">
               Registrar recebíveis junto a Registradora
@@ -306,7 +305,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="registrarRecebiveis"
               value={data.registrarRecebiveis}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -318,7 +317,7 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
               name="analistaRelacionamento"
               value={data.analistaRelacionamento}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="">Selecione...</option>
               <option value="analista1">Analista 1</option>
@@ -327,10 +326,10 @@ export default function Empresa({ data, updateData, onNext }: EmpresaProps) {
           </div>
         </div>
 
-        <div className="pt-8 flex justify-end border-t border-gray-200 w-full">
+        <div className="pt-6 flex justify-end border-t border-gray-200 w-full">
           <button
             onClick={onNext}
-            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
+            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
           >
             Continuar
           </button>

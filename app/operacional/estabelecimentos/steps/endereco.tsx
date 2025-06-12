@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -29,13 +28,13 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
 
   return (
     <div className="w-full">
-      <div className="mb-8 w-full">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Endereço</h3>
-        <p className="text-gray-600">Endereço comercial da empresa</p>
+      <div className="mb-6 w-full">
+        <h3 className="text-base font-semibold text-gray-900 mb-2">Endereço</h3>
+        <p className="text-sm text-gray-600">Endereço comercial da empresa</p>
       </div>
 
-      <div className="space-y-8 w-full">
-        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 w-full">
+      <div className="space-y-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="cep" className="text-sm font-medium text-gray-700">
               CEP
@@ -45,7 +44,7 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="cep"
               value={data.cep}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2 xl:col-span-2 lg:col-span-2">
@@ -57,7 +56,7 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="rua"
               value={data.rua}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -69,12 +68,12 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="numero"
               value={data.numero}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="bairro" className="text-sm font-medium text-gray-700">
               Bairro
@@ -84,7 +83,7 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="bairro"
               value={data.bairro}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -96,7 +95,7 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="cidade"
               value={data.cidade}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -108,7 +107,7 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="codigoMunicipio"
               value={data.codigoMunicipio}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -120,12 +119,12 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="estado"
               value={data.estado}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="complemento" className="text-sm font-medium text-gray-700">
               Complemento
@@ -135,21 +134,21 @@ export default function Endereco({ data, updateData, onNext, onPrev }: EnderecoP
               name="complemento"
               value={data.complemento}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="pt-8 flex justify-between border-t border-gray-200 w-full">
+        <div className="pt-6 flex justify-between border-t border-gray-200 w-full">
           <button
             onClick={onPrev}
-            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
+            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
             Voltar
           </button>
           <button
             onClick={onNext}
-            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
+            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
           >
             Continuar
           </button>

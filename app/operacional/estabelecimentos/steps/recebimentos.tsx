@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { CheckCircle } from "lucide-react"
@@ -41,13 +40,13 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
 
   return (
     <div className="w-full">
-      <div className="mb-8 w-full">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Recebimentos</h3>
-        <p className="text-gray-600">Configurações de contas bancárias e recebimentos</p>
+      <div className="mb-6 w-full">
+        <h3 className="text-base font-semibold text-gray-900 mb-2">Recebimentos</h3>
+        <p className="text-sm text-gray-600">Configurações de contas bancárias e recebimentos</p>
       </div>
 
-      <div className="space-y-8 w-full">
-        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 w-full">
+      <div className="space-y-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="transferenciaAutomatica" className="text-sm font-medium text-gray-700">
               Transferência automática
@@ -57,7 +56,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
               name="transferenciaAutomatica"
               value={data.transferenciaAutomatica}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
@@ -72,7 +71,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
               name="periodicidade"
               value={data.periodicidade}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="Diária">Diária</option>
               <option value="Semanal">Semanal</option>
@@ -88,7 +87,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
               name="valorMinimo"
               value={data.valorMinimo}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -100,7 +99,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
               name="antecipacao"
               value={data.antecipacao}
               onChange={handleChange}
-              className="w-full h-11 bg-[#F2F2F2] border-0 rounded-lg px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
+              className="w-full h-12 md:h-10 bg-[#F2F2F2] border-0 rounded-xl px-3 text-sm focus:ring-2 focus:ring-[#169BFF] focus:border-transparent"
             >
               <option value="Sim">Sim</option>
               <option value="Não">Não</option>
@@ -108,10 +107,10 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-8 mt-8 w-full">
-          <h4 className="text-xl font-semibold text-gray-800 mb-6">Recebimento das vendas</h4>
+        <div className="border-t border-gray-200 pt-6 mt-6 w-full">
+          <h4 className="text-base font-semibold text-gray-800 mb-5">Recebimento das vendas</h4>
 
-          <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-6 w-full">
+          <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
             <div className="space-y-2">
               <Label htmlFor="formaRecebimento" className="text-sm font-medium text-gray-700">
                 Forma de Recebimento
@@ -121,7 +120,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="formaRecebimento"
                 value={data.formaRecebimento}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -133,7 +132,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="tipoDocumento"
                 value={data.tipoDocumento}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -145,7 +144,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="cpf"
                 value={data.cpf}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -157,12 +156,12 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="banco"
                 value={data.banco}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 gap-6 w-full mt-6">
+          <div className="grid grid-cols-1 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 gap-4 w-full mt-5">
             <div className="space-y-2">
               <Label htmlFor="tipoConta" className="text-sm font-medium text-gray-700">
                 Tipo de Conta
@@ -172,7 +171,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="tipoConta"
                 value={data.tipoConta}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -184,7 +183,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="agencia"
                 value={data.agencia}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -196,7 +195,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="digitoAgencia"
                 value={data.digitoAgencia}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -208,7 +207,7 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="conta"
                 value={data.conta}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
             <div className="space-y-2">
@@ -220,12 +219,12 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
                 name="digitoConta"
                 value={data.digitoConta}
                 onChange={handleChange}
-                className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+                className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
               />
             </div>
           </div>
 
-          <div className="mt-6 w-full">
+          <div className="mt-5 w-full">
             <div className="flex items-center">
               <input
                 type="checkbox"
@@ -249,16 +248,16 @@ export default function Recebimentos({ data, updateData, onNext, onPrev }: Receb
           </div>
         </div>
 
-        <div className="pt-8 flex justify-between border-t border-gray-200 w-full">
+        <div className="pt-6 flex justify-between border-t border-gray-200 w-full">
           <button
             onClick={onPrev}
-            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
+            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
             Voltar
           </button>
           <button
             onClick={onNext}
-            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
+            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
           >
             Continuar
           </button>

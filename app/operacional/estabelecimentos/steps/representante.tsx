@@ -1,5 +1,4 @@
 "use client"
-
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import type React from "react"
@@ -30,21 +29,21 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
 
   return (
     <div className="w-full">
-      <div className="mb-8 w-full">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Representante</h3>
-        <p className="text-gray-600">Dados do representante legal</p>
+      <div className="mb-6 w-full">
+        <h3 className="text-base font-semibold text-gray-900 mb-2">Representante</h3>
+        <p className="text-sm text-gray-600">Dados do representante legal</p>
       </div>
 
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8 w-full">
-        <h4 className="text-lg font-semibold text-amber-800 mb-3">Responsável pelo negócio</h4>
-        <p className="text-amber-700 leading-relaxed">
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 w-full">
+        <h4 className="text-sm font-semibold text-amber-800 mb-2">Responsável pelo negócio</h4>
+        <p className="text-sm text-amber-700 leading-relaxed">
           Preenchimento do Responsável. É obrigatório que o Responsável pelo negócio conste no quadro societário ou o
           credenciamento poderá ser reprovado.
         </p>
       </div>
 
-      <div className="space-y-8 w-full">
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+      <div className="space-y-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="nacionalidade" className="text-sm font-medium text-gray-700">
               Nacionalidade
@@ -54,7 +53,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="nacionalidade"
               value={data.nacionalidade}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -66,7 +65,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="cpf"
               value={data.cpf}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -78,12 +77,12 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="cargo"
               value={data.cargo}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="site" className="text-sm font-medium text-gray-700">
               Site / Rede Social
@@ -93,7 +92,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="site"
               value={data.site}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -105,7 +104,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="nomeCompleto"
               value={data.nomeCompleto}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -117,12 +116,12 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="dataNascimento"
               value={data.dataNascimento}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="rg" className="text-sm font-medium text-gray-700">
               RG (Troque o X por 0)
@@ -132,7 +131,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="rg"
               value={data.rg}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -144,7 +143,7 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="nomeMae"
               value={data.nomeMae}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
           <div className="space-y-2">
@@ -156,12 +155,12 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               name="celular"
               value={data.celular}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 w-full">
           <div className="space-y-2">
             <Label htmlFor="email" className="text-sm font-medium text-gray-700">
               Endereço de e-mail
@@ -172,21 +171,21 @@ export default function Representante({ data, updateData, onNext, onPrev }: Repr
               type="email"
               value={data.email}
               onChange={handleChange}
-              className="h-11 bg-[#F2F2F2] border-0 rounded-lg focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
+              className="h-12 md:h-10 text-sm bg-[#F2F2F2] border-0 rounded-xl focus:ring-2 focus:ring-[#169BFF] focus:border-transparent w-full"
             />
           </div>
         </div>
 
-        <div className="pt-8 flex justify-between border-t border-gray-200 w-full">
+        <div className="pt-6 flex justify-between border-t border-gray-200 w-full">
           <button
             onClick={onPrev}
-            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 order-2 sm:order-1"
+            className="px-4 py-2 text-sm bg-gray-100 text-gray-700 font-medium rounded-lg shadow hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
             Voltar
           </button>
           <button
             onClick={onNext}
-            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2] order-1 sm:order-2"
+            className="px-4 py-2 text-sm bg-[#169BFF] text-white font-bold rounded-lg shadow hover:bg-[#169affb2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#169affb2]"
           >
             Continuar
           </button>
