@@ -51,7 +51,7 @@ export function DispositivoCard({
   const statusColor = statusColors[status]
 
   return (
-    <div className="relative overflow-hidden bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 group">
+    <div className="relative overflow-hidden bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer">
       {/* Status badge */}
       <div
         className={cn(
@@ -86,17 +86,17 @@ export function DispositivoCard({
         {/* Divider */}
         <div className="h-px bg-gray-100 my-3"></div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between">
+        {/* Footer - Modificado para resolver o problema em telas pequenas */}
+        <div className="flex flex-col xs:flex-row xs:items-center xs:justify-between gap-2">
           <div className="flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5 text-gray-400" />
             <span className="text-xs text-gray-500">{dataCadastro}</span>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col xs:flex-row gap-2">
             <button
               onClick={() => onView(id)}
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium h-8 px-3 py-0 bg-white text-blue-600 shadow-sm border border-gray-200 hover:bg-blue-50 hover:border-blue-200 transition-colors"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium h-8 px-3 py-0 bg-white text-blue-600 shadow-sm border border-gray-200 hover:bg-blue-50 hover:border-blue-200 transition-colors w-full xs:w-auto"
             >
               <Eye className="h-3.5 w-3.5 mr-1.5" />
               Visualizar
@@ -105,7 +105,7 @@ export function DispositivoCard({
               onClick={() => onDelete(id)}
               disabled={status === "Em uso"}
               className={cn(
-                "inline-flex items-center justify-center rounded-md text-sm font-medium h-8 px-3 py-0 shadow-sm border transition-colors",
+                "inline-flex items-center justify-center rounded-md text-sm font-medium h-8 px-3 py-0 shadow-sm border transition-colors w-full xs:w-auto",
                 status === "Em uso"
                   ? "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
                   : "bg-white text-red-600 border-gray-200 hover:bg-red-50 hover:border-red-200",
