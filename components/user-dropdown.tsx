@@ -35,12 +35,13 @@ export default function UserDropdown() {
     },
     {
       icon: FileText,
-      label: "Meus documentos",
+      label: "Meus arquivos",
       onClick: () => {
-        toast({
-          title: "Em desenvolvimento",
-          description: "Esta funcionalidade estará disponível em breve.",
-        })
+        router.push("/arquivos")
+        // toast({
+        //   title: "Em desenvolvimento",
+        //   description: "Esta funcionalidade estará disponível em breve.",
+        // })
         setIsOpen(false)
       },
     },
