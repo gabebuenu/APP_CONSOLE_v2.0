@@ -9,19 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  redirects: async () => [
-    {
-      source: '/',
-      destination: '/dashboard',
-      permanent: false, 
-    },
-  ],
-  rewrites: async () => [
-    {
-      source: '/',
-      destination: '/dashboard', 
-    },
-  ],
+  // Removido os redirects e rewrites que forçavam ir para /dashboard
 }
 
 export default nextConfig

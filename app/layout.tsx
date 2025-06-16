@@ -1,12 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
-import MainLayout from "@/components/main-layout"
-// import MovingPayIco from "@/public/paymoving.ico"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Console - MovingPay",
   description: "Sistema de gestão MovingPay",
+  icons: {
+    icon: "/favicon.png",
+  },
 }
 
 export default function RootLayout({
@@ -15,13 +18,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <head>
-        {/* Favicon */}
-        <link rel="icon" href="../../../favicon.png" />
-      </head>
-      <body className="bg-[#f4f5fa] font-['Montserrat']">
-        <MainLayout>{children}</MainLayout>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className="bg-[#f4f5fa] font-['Montserrat']" suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

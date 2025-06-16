@@ -289,7 +289,7 @@ export default function PagamentosPage() {
     <div className="bg-white min-h-screen p-6">
       {/* Cabeçalho da página */}
       <div className="mb-6">
-        <h2 className="text-sm font-medium text-gray-900 mb-1">Contas a pagar</h2>
+        <h2 className="text-sm font-medium text-gray-900 mb-1">Contas à pagar</h2>
         <p className="text-xs text-gray-500">Tela Inicial</p>
       </div>
       {/* Top Bar */}
