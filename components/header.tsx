@@ -2,10 +2,8 @@
 
 import { useState } from "react"
 import { Bell, ChevronDown, Grid2x2, PanelRightOpen, Settings, Check } from "lucide-react"
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import MovingPay from "@/public/paymoving.png"
-import MovingPayIco from "@/public/favicon.png"
+import UserDropdown from "@/components/user-dropdown"
 
 type HeaderProps = {
   toggleSidebar: () => void
@@ -151,9 +149,7 @@ const Header = ({ toggleSidebar, sidebarOpen }: HeaderProps) => {
           </Badge>
         </div>
 
-        <Avatar className="w-[50px] h-[50px] bg-white rounded-full border-[0.5px] border-[#cacaca] cursor-pointer hover:border-[#999999] transition-all duration-200 hover:scale-105">
-          <AvatarImage src={MovingPayIco.src} alt="MovingPay Logo" className="object-contain p-2" />
-        </Avatar>
+        <UserDropdown />
       </div>
     </div>
   )
